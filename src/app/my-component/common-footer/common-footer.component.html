@@ -1,0 +1,126 @@
+<ion-footer class="footer-wrapper">
+  <!-- <ion-toolbar color="lightBlue" text-center>
+    <ion-title class="font-size-12 text-decoration-none powered-by">
+      Powered By: <a class="padding-left-5 powered-by-text" href="https://rnjcs.in/?utm_source=bms&utm_medium=dugarinvestment" target="_blank">RNJ Consultancy Services</a>
+    </ion-title>
+  </ion-toolbar> -->
+  <div class="top-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-3">
+          <div class="footer-logo">
+            <img src="{{file_url}}/{{footer?.all_data?.path}}/{{footer?.all_data?.logo_icon}}">
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-3">
+          <div class="contact-details">
+            <h4>Contact Details</h4>
+              <p *ngIf="footer?.contact?.mobile?.phone">Phone: {{ footer?.contact?.mobile?.phone }}</p>
+              <p *ngIf="footer?.contact?.mobile?.alternative_phone">Fax: {{ footer?.contact?.mobile?.alternative_phone }}</p>
+              <p>Email: {{ footer?.contact?.email?.email }}   {{footer?.contact?.email?.alternative_email}}</p>
+              <p>Address:  {{footer?.all_data?.address}}</p>
+              <!-- <div>Address</div><p [innerHTML]="footer?.all_data?.address"></p> -->
+
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-3">
+          <div class="links">
+            <h4>Useful Links</h4>
+            <p><a (click)="goToPage('about-us', '')">About us</a></p>
+            <p><a (click)="goToPage('contact', '')">Contact us</a></p>
+            <p><a (click)="goToPage('cms/terms-and-conditions', '')">Terms and conditions</a></p>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-3">
+          <div class="links">
+            <h4>Social Links</h4>
+          </div>
+          <div class="social-icons">
+            <ul>
+              <a *ngIf="footer?.social?.facebook" target="blank" href="{{ footer?.social?.facebook }}"><li><i class="fa fa-facebook" aria-hidden="true"></i></li></a>
+              <a *ngIf="footer?.social?.twitter" target="blank" href="{{ footer?.social?.twitter }}"><li><i class="fa fa-twitter" aria-hidden="true"></i></li></a>
+              <a *ngIf="footer?.social?.Linkedin" target="blank" href="{{ footer?.social?.Linkedin }}"><li><i class="fa fa-linkedin" aria-hidden="true"></i></li></a>
+              <a *ngIf="footer?.social?.youtube" target="blank" href="{{ footer?.social?.youtube }}"><li><i class="fa fa-youtube" aria-hidden="true"></i></li></a>
+              <a *ngIf="footer?.social?.instagram" target="blank" href="{{ footer?.social?.instagram }}"><li><i class="fa fa-instagram" aria-hidden="true"></i></li></a>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-footer">
+    <div class="container">
+      <div class="row">
+          
+        <div class="col-md-6 text-left">
+          <span class="power_by_text" style="padding-right: 5px;">Developed By:</span>
+          <a class="powerby" href="https://www.nitsolution.in/" target="_blank">
+            NIT Solution Pvt. Ltd.
+          </a>
+        </div>
+        <div class="col-md-6 text-right">
+          <span class="power_by_text" style="padding-right: 5px;">Collaborate with:</span>
+          <a class="powerby" href="https://i-texperts.com/" target="_blank">
+            I Tech Experts Services Inc.
+          </a>
+        </div>
+    </div>
+      <div class="row mt-2">
+        <div class="col-md-12 text-center">
+          <p>© 2022 CHAMPS REAL ESTATE BROKERAGE INC. All Rights Reserved.</p>
+        </div>
+       
+      </div>
+      <!-- <ul>
+        <li>
+          <p>© 2022 © 2022 CHAMPS REAL ESTATE BROKERAGE INC. All Rights Reserved All Rights Reserved</p>
+        </li>
+        <li>
+          <span class="power_by_text" style="padding-right: 5px;">Developed By:</span>
+          <a class="powerby" href="https://www.nitsolution.in/" target="_blank">
+            NIT Solution Pvt. Ltd.
+          </a>
+        </li>
+        <li>
+          <span class="power_by_text" style="padding-right: 5px;">Collaborate with:</span>
+          <a class="powerby" href="https://i-texperts.com/" target="_blank">
+            I Tech Experts Services Inc.
+          </a>
+        </li>
+      </ul> -->
+    </div>
+  </div>
+</ion-footer>
+<div class="chatWidget">
+  <ion-fab *ngIf="!chatWidget" horizontal="start" vertical="bottom" slot="fixed">
+    <ion-fab-button class="main-icon">
+      <ion-icon name="chatboxes"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="sendMail()" color="danger">
+        <ion-icon name="mail"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button (click)="openChatBox()" color="success">
+        <ion-icon name="logo-whatsapp"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+  <div *ngIf="chatWidget" class="chatbox">
+    <div class="chatbox-wrapper">
+      <div class="chat">
+        <ion-icon class="closeMsg" (click)="openChatBox()" name="close-circle"></ion-icon>
+        <div class="messages">
+          <div class="messages-item">
+            <p>How can I help you? :)</p>
+          </div>
+        </div>
+        <div class="message-box">
+          <input class="message-input" type="text" placeholder="Type message..." name="wpMsg" [(ngModel)]="model.wpMsg">
+          <ion-button (click)="sendWhatsapp(model.wpMsg)" color="success" shape="round">
+            <ion-icon slot="icon-only" name="send"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

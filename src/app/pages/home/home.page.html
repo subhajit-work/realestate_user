@@ -1,0 +1,439 @@
+<ion-content [scrollEvents]="true" (ionScroll)="onScrollHedearFix($event)">
+  <!-- common header show -->
+  <common-header [ngClass]="{'fix-header':isFixedHeader}"></common-header>
+
+  <div class="get-quote">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-12">
+          <div class="section-tittle">
+            <h5>{{homeJoinData?.title}}</h5>
+          </div>
+          <div class="section-sub-title">
+            <p>{{homeJoinData?.sub_title}}</p>
+          </div>
+          <div class="">
+            <a class="action-button animate green" href="javascript:void(0);" (click)="userAuthenticateModal('signUp', '', '')"> {{homeJoinData?.button_content}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- ------ banner section start ----- -->
+  <div class="banner" *ngIf="homePageData?.banner_section == 'Active'">
+    <ngx-slick-carousel class="carousel" 
+    #slickModal="slick-carousel" 
+    [config]="slideConfig" 
+    (init)="slickInit($event)"
+    (breakpoint)="breakpoint($event)"
+    (afterChange)="afterChange($event)"
+    (beforeChange)="beforeChange($event)">
+
+    <!-- banner slider -->
+    <div ngxSlickItem class="slide" *ngFor="let bannerItem of homePageData?.banner">
+      <img *ngIf="bannerItem?.image" src="{{file_url}}/{{bannerItem?.path}}/{{bannerItem?.image}}"  width="100%">
+      <!-- banner content -->
+      <div class="banner-caption-wrapper">
+        <div class="container">
+          <div class="row">
+            <div class="banner-caption wow fadeInDown" data-wow-delay="5s" data-wow-duration="5s">
+              <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> -->
+                <div class="banner-caption-inner wow fadeInDown" data-wow-delay="1s" data-wow-duration="1s">
+                  <h3 *ngIf="bannerItem?.title_name" class="wow bounceInLeft" data-wow-delay="1s" data-wow-duration="2s">{{bannerItem?.title_name}}</h3>
+                  <h4 *ngIf="bannerItem?.sub_title" class="wow bounceInLeft" data-wow-delay="1s" data-wow-duration="2s" [innerHTML]="bannerItem?.sub_title"></h4>
+                  <p *ngIf="bannerItem?.description" class="wow fadeInLeft" data-wow-delay="1.1s" data-wow-duration="2s" [innerHTML]="bannerItem?.description"></p>
+
+                  <div class="custom-btn banner-readmore">
+                    <ion-button size="default" type="button" [routerLink]="['/contact']">
+                      <span class="submitText">Contact Us</span>
+                    </ion-button>
+                  </div>
+                </div>
+              <!-- </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </ngx-slick-carousel>
+  
+  <!-- <button (click)="addSlide()">Add</button>
+  <button (click)="removeSlide()">Remove</button>
+  <button (click)="slickModal.slickGoTo(2)">slickGoto 2</button>
+  <button (click)="slickModal.unslick()">unslick</button> -->
+  </div>
+  <!-- banner section end -->
+
+  <div class="section-background-attatch">
+    
+    <!-- -----Free consultation start----- -->
+    <!-- <div class="free-consultation">
+      <div class="container">
+        <div class="consultation-content">
+          <div class="row align-items-center">
+            <div class="col-xl-9 col-md-8 col-sm-7">
+              <h4>Get a free consultation</h4>
+              <p>Have an idea or a project, lets ectetur adipisicing elit, sed do eiusmod tempor.</p>
+            </div>
+            <div class="col-xl-3 col-md-4 col-sm-5">
+              <div class="custom-btn">
+                <a href="#" target="blank">
+                  SUBMIT REQUEST
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- Free consultation end -->
+
+    
+    
+
+    <!-- --------Why us start-------- -->
+    <div class="why-us">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <!-- <div class="section-head">
+              <h2>Why Us</h2>
+              <p>Dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard unknown printer took a quis nostrud exercitatliquip.</p>
+            </div> -->
+            <div class="section-heading">
+              <h2 *ngIf="homePageData?.whyus?.title" [innerHTML]="homePageData?.whyus?.title"></h2>
+              <p *ngIf="homePageData?.whyus?.description" [innerHTML]="homePageData?.whyus?.description"></p>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-4" *ngFor="let whyusItem of homePageData?.whyus?.data">
+            <div class="practise-item" >
+                <div class="icon-box" *ngIf="whyusItem?.image"><img (click)="commercialModal('property', whyusItem?.id, '')" src="{{file_url}}/{{whyusItem?.path}}/{{whyusItem?.image}}" ></div>
+                <h2 *ngIf="whyusItem?.title"><a href="#" (click)="commercialModal('property', whyusItem?.id, '')">{{whyusItem?.title}}</a></h2>
+                <!-- <p>{{ service?.description | slice:0:150 }} ...</p> -->
+                <p *ngIf="whyusItem?.description.length > 100; else not_read_text">
+                  <span *ngIf="!whyusItem.isReadmoreCollapsed">{{ whyusItem?.description  | slice:0:100 }} ... </span>
+                  <span *ngIf="whyusItem.isReadmoreCollapsed">{{ whyusItem?.description}}</span>
+                  <span *ngIf="!whyusItem.isReadmoreCollapsed" class="read-content more" (click)="readmoreCollapsed(whyusItem)">Read More</span>
+                  <span *ngIf="whyusItem.isReadmoreCollapsed" class="read-content less" (click)="readmoreCollapsed(whyusItem)">Read Less</span>
+                </p>
+                <ng-template #not_read_text>
+                  <p>{{ whyusItem?.description}}</p>
+                </ng-template>
+                <!-- <div class="custom-btn ion-text-center">
+                  <ion-button (click)="commercialModal('property', whyusItem?.id, '')" size="default" type="button">
+                    <span class="submitText">Apply</span>
+                  </ion-button>
+                </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Why us end -->
+
+    
+
+    <!-- -----Properties section start----- -->
+    <div class="properties" *ngIf="homePageData?.property_section == 'Active'">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="section-heading">
+              <h2 *ngIf="homePageData?.property?.title" [innerHTML]="homePageData?.property?.title"></h2>
+              <p *ngIf="homePageData?.property?.description" [innerHTML]="homePageData?.property?.description"></p>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-4" *ngFor="let propertyItem of homePageData?.property?.data">
+            <div class="project-single aos-init aos-animate">
+              <div class="project-inner project-head">
+                <div class="homes">
+                    <!-- homes img -->
+                    <a href="single-property-1.html" class="homes-img">
+                        <div class="homes-tag button alt featured">Featured</div>
+                        <div class="homes-tag button alt sale">For Sale</div>
+                        <div class="homes-price">$ {{propertyItem?.price}}</div>
+                        <img src="{{file_url}}/{{propertyItem?.path}}/{{propertyItem?.image1}}"  class="img-responsive">
+                    </a>
+                </div>
+                <div class="button-effect">
+                    <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
+                    <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i class="fa fa-video-camera"></i></a>
+                    <a href="single-property-2.html" class="img-poppu btn"><i class="fa fa-photo"></i></a>
+                </div>
+              </div>
+              <!-- homes content -->
+              <div class="homes-content">
+                <!-- homes address -->
+                <h3><a href="single-property-1.html">{{propertyItem?.property_name}}</a></h3>
+                <p class="homes-address mb-3">
+                  <a href="single-property-1.html">
+                      <i class="fa fa-map-marker"></i><span [innerHTML]="propertyItem?.address"></span>
+                  </a>
+                </p>
+                <!-- homes List -->
+                <ul class="homes-list clearfix pb-3">
+                  <li class="the-icons">
+                      <i class="fa fa-bed" aria-hidden="true"></i>
+                      <span>{{propertyItem?.bedroom}} Bedrooms</span>
+                  </li>
+                  <li class="the-icons">
+                      <i class="fa fa-bath" aria-hidden="true"></i>
+                      <span>{{propertyItem?.bathrooms}} Bathrooms</span>
+                  </li>
+                  <li class="the-icons">
+                      <i class="fa fa-square-o" aria-hidden="true"></i>
+                      <span>{{propertyItem?.area}} sq ft</span>
+                  </li>
+                  <li class="the-icons">
+                      <i class="fa fa-car" aria-hidden="true"></i>
+                      <span>{{propertyItem?.garages}} Garages</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div class="custom-btn ion-text-center">
+              <ion-button size="default" type="button" [routerLink]="['/','properties']">
+                <span class="submitText">View all</span>
+              </ion-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Properties section end -->
+
+    <!-- -----Popular places section start----- -->
+    <div class="popular-places" *ngIf="homePageData?.place_section == 'Active'">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="section-heading">
+              <h2><span>Popular </span>Places</h2>
+              <p>We provide full service at every step.</p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 aos-init aos-animate" data-aos="fade-right" *ngFor="let popularItem of popularPlacesData">
+              <!-- Image Box -->
+              <a href="#" class="img-box hover-effect">
+                  <img src="{{file_url}}/{{popularItem?.path}}/{{popularItem?.image}}" class="img-responsive" alt="">
+                  <div class="img-box-content visible">
+                      <h4>{{popularItem?.city_name}} </h4>
+                  </div>
+              </a>
+          </div>
+
+          <!-- <div class="col-lg-4 col-md-6 aos-init aos-animate" data-aos="fade-right">
+            <a href="#" class="img-box hover-effect">
+                <img src="https://code-theme.com/html/findhouses/images/popular-places/12.jpg" class="img-responsive" alt="">
+                <div class="img-box-content visible">
+                    <h4>New York City </h4>
+                </div>
+            </a>
+          </div>
+          <div class="col-lg-8 col-md-6 aos-init aos-animate" data-aos="fade-left">
+              <a href="#" class="img-box hover-effect">
+                  <img src="https://code-theme.com/html/findhouses/images/popular-places/13.jpg" class="img-responsive" alt="">
+                  <div class="img-box-content visible">
+                      <h4>Los Angeles</h4>
+                  </div>
+              </a>
+          </div>
+          <div class="col-lg-8 col-md-6 aos-init aos-animate" data-aos="fade-right">
+              <a href="#" class="img-box hover-effect no-mb">
+                  <img src="https://code-theme.com/html/findhouses/images/popular-places/14.jpg" class="img-responsive" alt="">
+                  <div class="img-box-content visible">
+                      <h4>San Francisco </h4>
+                  </div>
+              </a>
+          </div>
+          <div class="col-lg-4 col-md-6 aos-init aos-animate" data-aos="fade-left">
+              <a href="#" class="img-box hover-effect no-mb x3">
+                  <img src="https://code-theme.com/html/findhouses/images/popular-places/15.jpg" class="img-responsive" alt="">
+                  
+                  <div class="img-box-content visible">
+                      <h4>Miami</h4>
+                  </div>
+              </a>
+          </div> -->
+        </div>
+      </div>
+    </div>
+    <!-- Popular places section end -->
+
+    <!-- --------Counterup section start-------- -->
+    <div class="counterup">
+      <div class="section-heading">
+        <h2 *ngIf="homePageData?.counter?.title" [innerHTML]="homePageData?.counter?.title"></h2>
+        <p *ngIf="homePageData?.counter?.description" [innerHTML]="homePageData?.counter?.description"></p>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-sm-6" *ngFor="let counterItem of homePageData?.counter?.data">
+            <div class="counter-item">
+              <div class="counter-img">
+                <img src="{{file_url}}/{{counterItem?.path}}/{{counterItem?.image}}">
+              </div>
+              <div class="counter-text">
+                <p class="numbers count">{{counterItem?.count}}</p>
+                <p class="text">{{counterItem?.name}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Counterup section end -->
+
+    <!--------- note section start ------- -->
+    <div class="note-wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12">
+            <div class="section-heading">
+              <h2 *ngIf="homePageData?.testimonials?.title" [innerHTML]="homePageData?.testimonials?.title"></h2>
+              <p *ngIf="homePageData?.testimonials?.description" [innerHTML]="homePageData?.testimonials?.description"></p>
+            </div>
+            <div class="note-slider wow fadeInUp" data-wow-delay="0.15s" data-wow-duration="2s">
+              <ngx-slick-carousel class="carousel" 
+              #slickModal="slick-carousel" 
+              [config]="noteSlideConfig" 
+              (init)="slickInit($event)"
+              >
+
+              <!-- note slider -->
+              <div ngxSlickItem *ngFor="let testimonialsItem of homePageData?.testimonials?.data" class="slide">
+                <div class="note-item">
+                  <h5 *ngIf="testimonialsItem?.name">{{testimonialsItem?.name}}</h5>
+                  <img *ngIf="testimonialsItem?.image" src="{{file_url}}/{{testimonialsItem?.path}}/{{testimonialsItem?.image}}" >
+                  <img *ngIf="!testimonialsItem?.image" src="assets/images/noimage.jpg">
+                  
+                  <div class="rating-show not-clickable">
+                    <!-- rating component call here -->
+                    <!-- item.intRating always need to number type not string -->
+                    <!-- <app-rating [rating]='ratingnumber' [itemId]='testimonialsItem?.id'></app-rating> -->
+                  </div>
+                  <p *ngIf="testimonialsItem?.description">
+                    <i class="fa fa-quote-left" aria-hidden="true"></i><br>
+                    {{testimonialsItem?.description}}
+                  </p>
+                </div>
+              </div>
+              </ngx-slick-carousel>
+
+            </div>
+            <!-- <div class="custom-btn ion-text-center">
+              <ion-button size="default" type="button" (click)="ratingModalForm('rating', '', '')">
+                <span class="submitText">Write a review</span>
+              </ion-button>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- note section end -->
+
+    <!-- contact us page start -->
+    <div class="associate-us-wrapper student-register-wrapper contact-us-wrapper" >
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-xs-12 col-sm-6 col-lg-5">
+            <form  #acontactusAddForm="ngForm" (ngSubmit)="onSubmit(acontactusAddForm)" class="student-register-inner">
+              <h6>Contact Us</h6>
+              <div class="row ion-padding">
+                <div class="col-xs-12 col-sm-10 col-lg-12">
+                  <div class="assessment-inner">
+                    <div class="row">
+                      <!-- name -->
+                      <div class="col-xs-12 col-sm-12">
+                        <div>
+                          <!-- <ion-label position="floating">Name : <sup>*</sup> </ion-label> -->
+                          <ion-input placeholder="Name*" name="name" [(ngModel)]="model.name" clearInput required></ion-input>
+                        </div>
+                      </div>
+                      <!-- email -->
+                      <div class="col-xs-12 col-sm-12">
+                        <div>
+                          <!-- <ion-label position="floating">Email : <sup>*</sup> </ion-label> -->
+                          <ion-input placeholder="Email*" type="email" name="email" [(ngModel)]="model.email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" clearInput email required></ion-input>
+                        </div>
+                      </div>
+                      <!-- Mobile -->
+                      <div class="col-xs-12 col-sm-12">
+                        <div>
+                          <!-- <ion-label position="floating">Mobile <sup>*</sup> </ion-label> -->
+                          <ion-input placeholder="Cell phone*" OnlyNumber="true" type="tel" minlength="1" maxlength="20" name="phone_no" [(ngModel)]="model.phone_no" clearInput required></ion-input>
+                        </div>
+                      </div>
+                      <!-- Select user type -->
+                      <div class="col-xs-12 col-sm-12">
+                        <div>
+                          <ng-select #visaSearch
+                          [dropdownPosition]="'bottom'"
+                          placeholder="You are a*"
+                          [items]="userType"
+                          bindLabel="name"
+                          bindValue="name"
+                          [searchable]="false"
+                          name="service_type" 
+                          [(ngModel)]="model.service_type"
+                          required
+                          >
+                          <ng-template ng-header-tmp>
+                            <input placeholder="Search" class="dropdown-custom-search" type="text" (input)="visaSearch.filter($event.target.value)" [autofocus]="true" />
+                          </ng-template>
+                          </ng-select>
+                        </div>
+                      </div>
+                      <!-- Message -->
+                      <div class="col-xs-12 col-sm-12">
+                        <div>
+                          <!-- <ion-label position="floating">Message : </ion-label> -->
+                          <ion-textarea placeholder="Message *" auto-grow="true" name="message" [(ngModel)]="model.message" required clearInput></ion-textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="submit-button-wrapper">
+                <div class="row ion-padding">
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ion-text-center">
+                    <div class="custom-btn">
+                      <!-- <ion-button class="reload clear-form" size="default" fill="clear" tooltip="Clear" flow="up" (click)="reloadPageAlert()">
+                        
+                        Clear
+                      </ion-button> -->
+
+                      <ion-button class="submit" size="default" [ngClass]="{'disabled': form_submit_text == 'Submitting'}"
+                      type="submit" 
+                      expand="block"
+                      [disabled]="!acontactusAddForm.valid"
+                      tooltip="Submit" flow="up">
+                      <ion-spinner name="crescent" *ngIf="form_submit_text == 'Submitting'"></ion-spinner> 
+                      <span class="submitText">{{form_submit_text}}</span>
+                      </ion-button>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+            
+      </div>
+    </div>
+    <!-- contact us page start -->
+
+  </div>
+
+  <!-- common footer show -->
+  <common-footer></common-footer>
+
+</ion-content>
+

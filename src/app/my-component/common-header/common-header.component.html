@@ -1,0 +1,196 @@
+<ion-header>
+  <!-- menu top header -->
+  <div class="menu-top-header " *ngIf="isMobile">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <div class="top-header-inner">
+            <ion-buttons slot="start" [hidden]="!isMobile" class="menu_toggle">  
+            <ion-menu-button auto-hide="false" ></ion-menu-button>
+            <!-- <ion-icon (click)="toggleMenu()" name="menu" class="menu-buton-destop"></ion-icon> -->
+            <!-- 9876543210 -->
+            </ion-buttons>
+
+            <img (click)="goToPage('/', '')" class="small-logo" src="{{file_url}}/{{footer?.all_data?.path}}/{{footer?.all_data?.logo_icon}}" alt="logo"/>
+
+            <div class="top-header-inner-text " [ngClass]="{'login-sucess':get_user_dtls}">
+              <ul class="header-social mobile-hide wow bounceInLeft" data-wow-duration="1000ms" data-wow-delay="300ms" >
+                <li *ngFor="let item of site_info_data?.social">
+                  <a href="{{item?.link}}" target="_blank">
+                    <i class="fa fa-{{item?.icon}}" aria-hidden="true"></i> 
+                  </a>
+                </li>
+              </ul>
+
+
+              <!-- <span class="contact-no mobile-hide"><a href="javascript:void(0);">9876543210</a></span> -->
+
+              <div class="menu-right-login" *ngIf="!get_user_dtls" [ngClass]="{'not-login': !get_user_dtls || get_user_dtls == ''}">
+                <!-- <ion-button class="wow bounceInRight mobile-signIn" data-wow-delay="0.15s" data-wow-duration="2s" size="small" (click)="userAuthenticateModal('signUp', '', '')">
+                  Join My Team
+                </ion-button> -->
+                <ion-button *ngIf="!get_user_dtls" data-wow-delay="0.15s" data-wow-duration="2s" class="sign-btn wow bounceInRight" size="default"
+                type="submit"
+                  tooltip="Join My Team" flow="left" >
+                <span class="material-icons" (click)="userAuthenticateModal('jointeam', '', '')">
+                    group
+                  </span>
+                <span class="submitText" (click)="userAuthenticateModal('jointeam', '', '')">
+                  Join my Team
+                </span>
+                &nbsp;|
+                <i class="fa fa-sign-in" aria-hidden="true" (click)="userAuthenticatesignIn('signIn', '', '')"></i>
+              </ion-button>
+              </div>
+
+              <!-- get_user_dtls -->
+              <!-- get_user_dtls -->
+              <ion-buttons class="user-login-dropdown wow bounceInRight" data-wow-delay="0.15s" data-wow-duration="2s" slot="end" *ngIf="get_user_dtls">
+                <div class="logout-dropdown">
+                  <button mat-button [matMenuTriggerFor]="menu1">
+                    <!-- <img class="img-scale" src="../../../assets/images/avatar.jpg" /> -->
+                    <span *ngIf="loadingShow" >
+                      <ion-spinner style="width: 100px; position: relative; top: 6px;" name="crescent" color="primary"></ion-spinner>
+                    </span>
+                    <span *ngIf="!loadingShow" >
+                      <img *ngIf="model?.image" class="img-scale" src="{{file_url}}/{{model?.path}}{{model?.image}}" />
+                      <img *ngIf="!model?.image" class="img-scale" src="assets/images/noimage.jpg" />
+                      <!-- <span class="welcome-text">Welcome</span> -->
+                      <span class="username">{{model?.name}}</span>
+                    </span>
+                    <mat-icon class="rotate_90">play_arrow</mat-icon>
+                  </button>
+                  <mat-menu #menu1="matMenu" xPosition="before">
+                    <ion-row class="dropdown-menu-content" style="width: 240px;">
+                      <ion-col class="dropdown-menu-item ion-float-left width-33 ion-text-center" role="button" tabindex="0">
+                        <!-- <div class="dropdown-item-inner pointer ion-text-center" (click)="changePasswordOpenModal('profile_update_modal', get_user_dtls, '');"> -->
+                        <div class="dropdown-item-inner pointer ion-text-center dashboard-dropdown" (click)="goToPage('profile', '')">
+                          
+                          <mat-icon  class="width-100">account_circle</mat-icon>
+                          Profile 
+                        </div>
+                        
+                      </ion-col>
+                      <ion-col class="dropdown-menu-item ion-float-left width-33 ion-text-center" role="button" tabindex="0">
+                        <div class="dropdown-item-inner pointer ion-text-center full-width" (click)="changePasswordOpenModal('change_password_modal', get_user_dtls, '');">
+                          <mat-icon class="width-100">enhanced_encryption</mat-icon>
+                          Change password 
+                        </div>
+                      </ion-col>
+                    </ion-row>
+                    <ion-row class="dropdown-menu-content">
+                        <ion-col class="dropdown-menu-lastitem" (click)="logOutUser()">
+                            <div class="dropdown-item-inner pointer ion-text-center" role="button" tabindex="0"><ion-icon class="width-100 ran-icon1" name="key"></ion-icon> Log Out </div>
+                        </ion-col>                
+                    </ion-row>
+                  </mat-menu>
+                </div>
+              </ion-buttons>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- menu bottom header -->
+  <div class="menu-bottom-header" *ngIf="!isMobile">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <div class="bottom-menu-inner">
+            <div class="logo wow bounceInLeft" data-wow-delay="0.15s" data-wow-duration="2s" (click)="goToPage('/', '')">
+              <!-- <img alt="logo" src="assets/images/logo.png" alt=""> -->
+              <img class="big-header-logo" src="{{file_url}}/{{footer?.all_data?.path}}/{{footer?.all_data?.logo_icon}}" alt="logo"/>
+              <img class="small-header-logo" src="{{file_url}}/{{footer?.all_data?.path}}/{{footer?.all_data?.logo_icon}}" alt="logo"/>
+            </div>
+            <div class="menu">
+              <ul class="wow fadeInUp" data-wow-delay="0.15s" data-wow-duration="2s">
+                <li><a (click)="goToPage('/', '')">HOME</a></li>
+                <li class="parent">
+                  <a href="javascript:void(0);">
+                    SERVICES
+                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                  </a>
+                  <ul>
+                    <li><a (click)="goToPage('join-team', '')">Join our team</a></li>
+                    <li><a (click)="goToPage('buy-sell-properties', '')">Buy/Sell Properties</a></li>
+                    <li><a (click)="goToPage('request-appointment', '')">Request for appointment</a></li>
+                  </ul>
+                </li>
+                <li><a (click)="goToPage('about-us', '')">About us</a></li>
+                <li><a (click)="goToPage('contact', '')">CONTACT</a></li>
+              </ul>
+
+            </div>
+            <div class="header-buttons">
+              <!-- New sign in button -->
+              <ion-button *ngIf="!get_user_dtls" data-wow-delay="0.15s" data-wow-duration="2s" class="sign-btn wow bounceInRight" size="default"
+                type="submit"
+                  tooltip="Join My Team" flow="left" >
+                <span class="material-icons" (click)="userAuthenticateModal('jointeam', '', '')">
+                    group
+                  </span>
+                <span class="submitText" (click)="userAuthenticateModal('jointeam', '', '')">
+                  Join my Team
+                </span>
+                &nbsp;|
+                <i class="fa fa-sign-in" aria-hidden="true" (click)="userAuthenticatesignIn('signIn', '', '')"></i>
+              </ion-button>
+
+            <!-- get_user_dtls -->
+            <!-- get_user_dtls -->
+            <ion-buttons class="user-login-dropdown wow bounceInRight" data-wow-delay="0.15s" data-wow-duration="2s" slot="end" *ngIf="get_user_dtls">
+              <div class="logout-dropdown">
+                <button mat-button [matMenuTriggerFor]="menu1">
+                  <!-- <img class="img-scale" src="../../../assets/images/avatar.jpg" /> -->
+                  <span *ngIf="loadingShow" >
+                    <ion-spinner style="width: 100px; position: relative; top: 6px;" name="crescent" color="primary"></ion-spinner>
+                  </span>
+                  <span *ngIf="!loadingShow" >
+                    <img *ngIf="model?.image" class="img-scale" src="{{file_url}}/{{model?.path}}{{model?.image}}" />
+                    <img *ngIf="!model?.image" class="img-scale" src="assets/images/noimage.jpg" />
+                    <!-- <span class="welcome-text">Welcome</span> -->
+                    <span class="username">{{model?.name}}</span>
+                  </span>
+                  <mat-icon class="rotate_90">play_arrow</mat-icon>
+                </button>
+                <mat-menu #menu1="matMenu" xPosition="before">
+                  <ion-row class="dropdown-menu-content" style="width: 240px;">
+                    <!-- <ion-col class="dropdown-menu-item ion-float-left width-33" role="button" tabindex="0">
+                      <div class="dropdown-item-inner pointer ion-text-center  full-width" (click)="changePasswordOpenModal('profile_update_modal', '', '');">
+                        <ion-icon class="width-100 ran-icon" name="person"></ion-icon>
+                        Profile 
+                      </div>
+                    </ion-col> -->
+                    <ion-col class="dropdown-menu-item ion-float-left width-33 ion-text-center" role="button" tabindex="0">
+                      <!-- <div class="dropdown-item-inner pointer ion-text-center" (click)="changePasswordOpenModal('profile_update_modal', get_user_dtls, '');"> -->
+                      <div class="dropdown-item-inner pointer ion-text-center dashboard-dropdown" (click)="goToPage('profile', '')">
+                        <mat-icon class="width-100">account_circle</mat-icon>
+                        Profile 
+                      </div>
+                      
+                    </ion-col>
+                    <ion-col class="dropdown-menu-item ion-float-left width-33 ion-text-center" role="button" tabindex="0">
+                      <div class="dropdown-item-inner pointer ion-text-center full-width" (click)="changePasswordOpenModal('change_password_modal', get_user_dtls, '');">
+                        <mat-icon class="width-100">enhanced_encryption</mat-icon>
+                        Change password 
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row class="dropdown-menu-content">
+                      <ion-col class="dropdown-menu-lastitem" (click)="logOutUser()">
+                          <div class="dropdown-item-inner pointer ion-text-center" role="button" tabindex="0"><ion-icon class="width-100 ran-icon1" name="key"></ion-icon> Log Out </div>
+                      </ion-col>                
+                  </ion-row>
+                </mat-menu>
+              </div>
+            </ion-buttons>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-header>

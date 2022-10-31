@@ -1,0 +1,117 @@
+<ion-content [scrollEvents]="true" (ionScroll)="onScrollHedearFix($event)">
+  <!-- common header show -->
+  <common-header [ngClass]="{'fix-header':isFixedHeader}"></common-header>
+  <!-- Sub header start -->
+  <div class="sub-header">
+    <div class="sub-header-inner">
+      <h1>About Us </h1>
+      <div class="breadcrumbs"><a class="breadcrumbs_item" href="#">Home</a><span class="breadcrumbs_delimiter">|</span><span class="breadcrumbs_item current">About Us</span></div>
+    </div>
+  </div>
+  <!-- Sub header end -->
+  <!--------- details section start ------- -->
+  <div class="detailsPage-wrapper about-us">
+    <!-- About company start -->
+    <div class="about-company">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <div class="content">
+              <h2>{{viewData?.aboutus?.title}}</h2>
+              <p *ngIf="viewData?.aboutus?.description" [innerHTML]="viewData?.aboutus?.description"></p>
+              <!-- <div class="custom-btn">
+                <ion-button size="default" type="button">
+                  <span class="submitText">Discover More</span>
+                </ion-button>
+              </div> -->
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="box-image">
+              <img src="{{file_url}}/{{viewData?.aboutus?.path}}/{{viewData?.aboutus?.image}}">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- About company end -->
+
+    <!--------- note section start ------- -->
+    <div class="note-wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12">
+            <div class="section-heading">
+              <h2 *ngIf="viewData?.testimonials?.title" [innerHTML]="viewData?.testimonials?.title"></h2>
+              <p *ngIf="viewData?.testimonials?.description" [innerHTML]="viewData?.testimonials?.description"></p>
+            </div>
+            <div class="note-slider wow fadeInUp" data-wow-delay="0.15s" data-wow-duration="2s">
+              <ngx-slick-carousel class="carousel" 
+              #slickModal="slick-carousel" 
+              [config]="noteSlideConfig" 
+              (init)="slickInit($event)"
+              >
+
+              <!-- note slider -->
+              <div ngxSlickItem *ngFor="let testimonialsItem of viewData?.testimonials?.data" class="slide">
+                <div class="note-item">
+                  <h5 *ngIf="testimonialsItem?.name">{{testimonialsItem?.name}}</h5>
+                  <img *ngIf="testimonialsItem?.image" src="{{file_url}}/{{testimonialsItem?.path}}/{{testimonialsItem?.image}}">
+                  <img *ngIf="!testimonialsItem?.image" src="assets/images/noimage.jpg">
+                  
+                  <div class="rating-show not-clickable">
+                    <!-- rating component call here -->
+                    <!-- item.intRating always need to number type not string -->
+                    <!-- <app-rating [rating]='ratingnumber' [itemId]='testimonialsItem?.id'></app-rating> -->
+                  </div>
+                  <p *ngIf="testimonialsItem?.description">
+                    <i class="fa fa-quote-left" aria-hidden="true"></i><br>
+                    {{testimonialsItem?.description}}
+                  </p>
+                </div>
+              </div>
+              </ngx-slick-carousel>
+
+            </div>
+            <!-- <div class="custom-btn ion-text-center">
+              <ion-button size="default" type="button" (click)="ratingModalForm('rating', '', '')">
+                <span class="submitText">Write a review</span>
+              </ion-button>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- note section end -->
+
+    <!-- Our mission start -->
+    <!-- <div class="our-mission">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <div class="box-img">
+              <img src="assets/images/bg-14.jpg">
+            </div>
+          </div>
+          <div class="col-md-5 offset-xl-1">
+            <div class="content-box">
+              <h2>Our Mission</h2>
+              <p>We can assist you with the following services:</p>
+              <ul>
+                <li>Immigration advice and information as per the current laws</li>
+                <li>Skill assessment preparation</li>
+                <li>Visa application preparation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- Our mission end -->
+  </div>
+  <!-- details section end -->
+
+  <!-- common footer show -->
+  <common-footer></common-footer>
+
+</ion-content>

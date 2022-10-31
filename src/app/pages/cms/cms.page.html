@@ -1,0 +1,141 @@
+<ion-content [scrollEvents]="true" (ionScroll)="onScrollHedearFix($event)">
+  <!-- common header show -->
+  <common-header [ngClass]="{'fix-header':isFixedHeader}"></common-header>
+  
+  <!-- Sub header start -->
+  <div class="sub-header">
+    <div class="sub-header-inner">
+      <h1>Terms & Conditions </h1>
+      <div class="breadcrumbs"><a class="breadcrumbs_item" href="#">Home</a><span class="breadcrumbs_delimiter">|</span><span class="breadcrumbs_item current">Terms & Conditions</span></div>
+    </div>
+  </div>
+  <!-- Sub header end -->
+
+  <!--------- details section start ------- -->
+  <div class="detailsPage-wrapper assessment job-details cms-page">
+
+    
+
+    <div class="details-page-inner">
+      <div class="container">
+        <div class="row">
+
+          <!-- skeleton loading  start-->
+          <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8" *ngIf="viewLoadData">
+
+            <div class="detailsPage-content sub-header-details" >
+              <div class="sub-header-details">
+                <div class="header-item">
+                  <ul>
+                    <li>
+                      <h5> 
+                        <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                      </h5> 
+                      <p>
+                        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                      </p>
+                    </li>
+                    <li>
+                      <h5> 
+                        <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                      </h5> 
+                      <p>
+                        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                      </p>
+                    </li>
+                    <li>
+                      <h5> 
+                        <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                      </h5> 
+                      <p>
+                        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="detailsPage-content item" >
+              <h3 class="heading">
+                <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              </h3>
+              <p>
+                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+              </p>
+              <p>
+                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+              </p>
+              <p>
+                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+              </p>
+              <p>
+                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+              </p>
+              <p>
+                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+              </p>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" *ngIf="viewLoadData">
+              <div class="detailspage-right-item">
+                <h3>
+                  <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                </h3>
+                <ul>
+                  <li>
+                    <h5>
+                      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                    </h5>
+                    <p>
+                      <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                    </p>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="detailspage-right-item">
+                <h3>
+                  <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                </h3>
+                <ul>
+                  <li>
+                    <h5>
+                      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                    </h5>
+                    <p>
+                      <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              
+          </div>
+          <!-- skeleton loading  end-->
+
+          <!-- content -->
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+            <!-- faq content -->
+            <div class="faq-content-wrapper  assessment-inner" >
+              <!-- <h5>{{viewData?.name}}</h5> -->
+              <div class="cms-image" *ngIf="viewData?.image">
+                <img src="{{file_url}}/{{viewData?.image}}" alt="image">
+              </div>
+              <p [innerHTML]="viewData?.value | safeHtml"></p>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- details section end -->
+
+  <!-- common footer show -->
+  <common-footer></common-footer>
+
+</ion-content>
+

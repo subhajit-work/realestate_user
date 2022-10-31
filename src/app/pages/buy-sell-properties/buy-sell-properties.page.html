@@ -1,0 +1,156 @@
+<ion-content [scrollEvents]="true" (ionScroll)="onScrollHedearFix($event)">
+  <!-- common header show -->
+  <common-header [ngClass]="{'fix-header':isFixedHeader}"></common-header>
+  <!-- Sub header start -->
+  <div class="sub-header sellProperties">
+    <div class="sub-header-inner">
+      <h1>Buy / Sell Properties</h1>
+      <div class="breadcrumbs"><a class="breadcrumbs_item" href="#">Home</a><span class="breadcrumbs_delimiter">|</span><span class="breadcrumbs_item current">Buy / Sell Properties</span></div>
+    </div>
+  </div>
+  <!-- Sub header end -->
+  <!--------- details section start ------- -->
+  <div class="detailsPage-wrapper">
+    <!-- ----buy or sell properties section start---- -->
+    <div class="buy-sell-properties joinig-content">
+      <div class="container">
+        <div class="section-heading">
+          <h2 *ngIf="viewData?.title" [innerHTML]="viewData?.title"></h2>
+          <p *ngIf="viewData?.description" [innerHTML]="viewData?.description"></p>
+        </div> 
+        <div class="row align-items-center">
+          <div class="col-lg-7">
+            <div class="image-part">
+              <img src="{{file_url}}/{{viewData?.data?.path}}/{{viewData?.data?.image}}">
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="content-part">
+              <h2>{{viewData?.data?.title}}</h2>
+              <div class="query-form student-register-inner">
+                <form  #acontactusAddForm="ngForm" (ngSubmit)="onSubmit(acontactusAddForm)" class="assessment-inner">
+                  <div class="row">
+                    <!-- name -->
+                    <div class="col-xs-12 col-sm-12">
+                      <div>
+                        <!-- <ion-label position="floating">Name : <sup>*</sup> </ion-label> -->
+                        <ion-input placeholder="Name*" name="name" [(ngModel)]="model.name" clearInput required></ion-input>
+                      </div>
+                    </div>
+                    <!-- email -->
+                    <div class="col-xs-12 col-sm-12">
+                      <div>
+                        <!-- <ion-label position="floating">Email : <sup>*</sup> </ion-label> -->
+                        <ion-input placeholder="Email*" type="email" name="email" [(ngModel)]="model.email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" clearInput email required></ion-input>
+                      </div>
+                    </div>
+                    <!-- Mobile -->
+                    <div class="col-xs-12 col-sm-12">
+                      <div>
+                        <!-- <ion-label position="floating">Mobile <sup>*</sup> </ion-label> -->
+                        <ion-input placeholder="Cell phone*" OnlyNumber="true" type="tel" minlength="10" maxlength="10" name="phone_no" [(ngModel)]="model.phone_no" clearInput required></ion-input>
+                      </div>
+                    </div>
+                    <!-- Select user type -->
+                    <div class="col-xs-12 col-sm-12">
+                      <div>
+                        <ng-select #purpose
+                        [dropdownPosition]="'bottom'"
+                        placeholder="You want to Sell / Buy? *"
+                        [items]="contactPurpose"
+                        bindLabel="name"
+                        bindValue="name"
+                        [searchable]="false"
+                        name="service_type" 
+                        [(ngModel)]="model.service_type"
+                        required
+                        >
+                        <ng-template ng-header-tmp>
+                          <input placeholder="Search" class="dropdown-custom-search" type="text" (input)="purpose.filter($event.target.value)" [autofocus]="true" />
+                        </ng-template>
+                        </ng-select>
+                      </div>
+                    </div>
+                    <!-- Message -->
+                    <div class="col-xs-12 col-sm-12">
+                      <div>
+                        <!-- <ion-label position="floating">Message : </ion-label> -->
+                        <ion-textarea placeholder="Message *" auto-grow="true" name="message" [(ngModel)]="model.message" required clearInput></ion-textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="custom-btn">
+                    <ion-button size="default" [ngClass]="{'disabled': form_submit_text == 'Submitting'}"
+                    type="submit" 
+                    [disabled]="!acontactusAddForm.valid"
+                    tooltip="Submit" flow="up">
+                    <ion-spinner name="crescent" *ngIf="form_submit_text == 'Submitting'"></ion-spinner> 
+                    <span class="submitText">{{form_submit_text}}</span>
+                    </ion-button>
+                  </div>
+                </form>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- buy or sell properties section end -->
+
+    <!-- -----Popular places section start----- -->
+    <!-- <div class="popular-places">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="section-heading">
+              <h2><span>Popular </span>Places</h2>
+              <p>We provide full service at every step.</p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 col-md-6 aos-init aos-animate" data-aos="fade-right">
+              <a href="#" class="img-box hover-effect">
+                  <img src="https://code-theme.com/html/findhouses/images/popular-places/12.jpg" class="img-responsive" alt="">
+                  <div class="img-box-content visible">
+                      <h4>New York City </h4>
+                  </div>
+              </a>
+          </div>
+          <div class="col-lg-8 col-md-6 aos-init aos-animate" data-aos="fade-left">
+              <a href="#" class="img-box hover-effect">
+                  <img src="https://code-theme.com/html/findhouses/images/popular-places/13.jpg" class="img-responsive" alt="">
+                  <div class="img-box-content visible">
+                      <h4>Los Angeles</h4>
+                  </div>
+              </a>
+          </div>
+          <div class="col-lg-8 col-md-6 aos-init aos-animate" data-aos="fade-right">
+              <a href="#" class="img-box hover-effect no-mb">
+                  <img src="https://code-theme.com/html/findhouses/images/popular-places/14.jpg" class="img-responsive" alt="">
+                  <div class="img-box-content visible">
+                      <h4>San Francisco </h4>
+                  </div>
+              </a>
+          </div>
+          <div class="col-lg-4 col-md-6 aos-init aos-animate" data-aos="fade-left">
+              <a href="#" class="img-box hover-effect no-mb x3">
+                  <img src="https://code-theme.com/html/findhouses/images/popular-places/15.jpg" class="img-responsive" alt="">
+                  
+                  <div class="img-box-content visible">
+                      <h4>Miami</h4>
+                  </div>
+              </a>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- Popular places section end -->
+  </div>
+  <!-- details section end -->
+
+  <!-- common footer show -->
+  <common-footer></common-footer>
+
+</ion-content>

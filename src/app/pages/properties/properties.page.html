@@ -1,0 +1,75 @@
+<ion-content [scrollEvents]="true" (ionScroll)="onScrollHedearFix($event)">
+  <!-- common header show -->
+  <common-header [ngClass]="{'fix-header':isFixedHeader}"></common-header>
+  <!-- Sub header start -->
+  <div class="sub-header properties-list">
+    <div class="sub-header-inner">
+      <h1>Properties</h1>
+      <div class="breadcrumbs"><a class="breadcrumbs_item" href="#">Home</a><span class="breadcrumbs_delimiter">|</span><span class="breadcrumbs_item current">Properties</span></div>
+    </div>
+  </div>
+  <!-- Sub header end -->
+  <!--------- details section start ------- -->
+  <div class="detailsPage-wrapper">
+    <div class="properties">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-lg-4" *ngFor="let propertyItem of viewData">
+            <div class="project-single aos-init aos-animate">
+              <div class="project-inner project-head">
+                <div class="homes">
+                    <!-- homes img -->
+                    <a href="single-property-1.html" class="homes-img">
+                        <div class="homes-tag button alt featured">Featured</div>
+                        <div class="homes-tag button alt sale">For Sale</div>
+                        <div class="homes-price">$ {{propertyItem?.price}}</div>
+                        <img src="{{file_url}}/{{propertyItem?.path}}/{{propertyItem?.image1}}" alt="{{propertyItem?.image1}}" class="img-responsive">
+                    </a>
+                </div>
+                <div class="button-effect">
+                    <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
+                    <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i class="fa fa-video-camera"></i></a>
+                    <a href="single-property-2.html" class="img-poppu btn"><i class="fa fa-photo"></i></a>
+                </div>
+              </div>
+              <!-- homes content -->
+              <div class="homes-content">
+                <!-- homes address -->
+                <h3><a href="single-property-1.html">{{propertyItem?.property_name}}</a></h3>
+                <p class="homes-address mb-3">
+                  <a href="single-property-1.html">
+                      <i class="fa fa-map-marker"></i><span [innerHTML]="propertyItem?.address"></span>
+                  </a>
+                </p>
+                <!-- homes List -->
+                <ul class="homes-list clearfix pb-3">
+                  <li class="the-icons">
+                      <i class="fa fa-bed" aria-hidden="true"></i>
+                      <span>{{propertyItem?.bedroom}} Bedrooms</span>
+                  </li>
+                  <li class="the-icons">
+                      <i class="fa fa-bath" aria-hidden="true"></i>
+                      <span>{{propertyItem?.bathrooms}} Bathrooms</span>
+                  </li>
+                  <li class="the-icons">
+                      <i class="fa fa-square-o" aria-hidden="true"></i>
+                      <span>{{propertyItem?.area}} sq ft</span>
+                  </li>
+                  <li class="the-icons">
+                      <i class="fa fa-car" aria-hidden="true"></i>
+                      <span>{{propertyItem?.garages}} Garages</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- details section end -->
+
+  <!-- common footer show -->
+  <common-footer></common-footer>
+
+</ion-content>

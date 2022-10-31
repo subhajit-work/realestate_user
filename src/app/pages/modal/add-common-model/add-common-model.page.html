@@ -1,0 +1,1007 @@
+<ion-content class="add-modal interest-add-modal">
+    <ion-item class="common-modal-header">
+        <ion-label>
+           {{heder_title}}
+        </ion-label>
+        <div class="modal-cancel-btn">
+            <a herf="#" (click)="closeModal()"><ion-icon color="dark" ios="ios-close" md="md-close"></ion-icon></a>
+        </div>
+    </ion-item>
+
+    <!-- ================== jointeam modal ======= -->
+    <ion-grid  *ngIf="get_identifier == 'jointeam'">
+        <ion-row>
+            <ion-col size="12">
+                <form class="common-modal"  #addModalForm="ngForm" (ngSubmit)="onSubmit(addModalForm)" (keyup.enter)="onSubmit(addModalForm)" novalidate>
+                    <div class="modal-body">
+                        <!-- for edit -->
+                        <input type="hidden" name="_method" [(ngModel)]="onEditField">
+                        <!-- Deposit Date -->
+                        <div class="change-password-wrapper">
+                            <div class="change-password-inner">
+
+                                <!-- fname -->
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div>
+                                            <ion-label position="floating">First Name <sup>*</sup> </ion-label>
+                                            <div>
+                                                <ion-input name="first_name" [(ngModel)]="model.fname" clearInput required>
+                                                </ion-input>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- lname -->
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div>
+                                            <ion-label position="floating">Last Name <sup>*</sup> </ion-label>
+                                            <div>
+                                                <ion-input name="last_name" [(ngModel)]="model.lname" clearInput required>
+                                                </ion-input>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- mobile -->
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div>
+                                            <ion-label position="floating">Cell Phone <sup>*</sup> </ion-label>
+                                            <div>
+                                                <ion-input OnlyNumber="true" type="tel" minlength="1" maxlength="20" name="phone_no" [(ngModel)]="model.phone_no" clearInput required></ion-input>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- email -->
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div>
+                                            <ion-label position="floating">Email <sup>*</sup> </ion-label>
+                                            <div>
+                                                <ion-input type="email" name="email" [(ngModel)]="model.email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" email clearInput required>
+                                                </ion-input>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- Prior Experience -->
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div>
+                                            <ion-label position="floating">Prior Experience(Year)</ion-label>
+                                            <div>
+                                                <ion-input name="prior_experience" OnlyNumber="true" type="tel" [(ngModel)]="model.prior_experience" clearInput>
+                                                </ion-input>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- Terms & condition -->
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div class="tramsconditionCheck">
+                                            <label>
+                                                <input type="checkbox" name="acceptTerms" id="acceptTerms" class="form-check-input" [(ngModel)]="model.acceptTerms" #acceptTerms="ngModel" required>
+            
+                                                <span class="ion-padding-start">I’ve read and accept the <a class="terms-condtion-text" (click)="goToPage('cms/terms-and-conditions', '')" target="_blank">Terms & Conditions</a></span>
+                                            </label>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- submit button -->
+                    <ion-row>
+                        <ion-col class="ion-text-center modal-submit modal-footer" size-xs="12" size-sm="12" size-md="12"  size-lg="12" >
+                            <ion-button  size="default"
+                            type="submit" [disabled]="!addModalForm.valid" 
+                            tooltip="Save" flow="up">
+                                <ion-spinner *ngIf="form_submit_text == 'Submitting'" name="crescent"></ion-spinner> 
+                                <span class="submitText">{{form_submit_text}}</span>
+                            </ion-button>
+                            <!-- <ion-button (click)="closeModal()" size="default" fill="clear" color="danger">
+                                <ion-icon name="close"></ion-icon>
+                                Cancel
+                            </ion-button> -->
+                        </ion-col>
+                    </ion-row>
+                </form>
+                
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <!-- jointeam form end -->
+
+    <!-- ================== sign In modal ======= -->
+    <ion-grid  *ngIf="get_identifier == 'signIn'" class="sign-in">
+        <ion-row>
+            <ion-col size="12">
+                <form class="common-modal"  #loginModalForm="ngForm" (ngSubmit)="onSubmitSingInForm(loginModalForm)"  (keyup.enter)="onSubmitSingInForm(loginModalForm)"  novalidate>
+                    <div class="modal-body">
+                        <img class="logo-modal" src="{{file_url}}/{{footer?.all_data?.path}}/{{footer?.all_data?.logo_icon}}">
+                        <!-- Deposit Date -->
+                        <div class="change-password-wrapper">
+                            <div class="change-password-inner">
+                                <div class="first_screen">
+                                    <!-- Email -->
+                                    <ion-row>
+                                        <ion-col size="12">
+                                            <div>
+                                                <ion-label position="floating">Email <sup>*</sup> </ion-label>
+                                                <div>
+                                                    <ion-input type="email" name="email" [(ngModel)]="model.email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" email clearInput required>
+                                                    </ion-input>
+                                                </div>
+                                            </div>
+                                        </ion-col>
+                                    </ion-row>
+
+                                    <!-- password -->
+                                    <ion-row>
+                                        <ion-col size="12">
+                                            <div>
+                                                <ion-label position="floating">Password <sup>*</sup> </ion-label>
+                                                <div>
+                                                    <ion-input [type]="hide ? 'password' : 'text'" name="password" [(ngModel)]="model.password" class="password"   clearInput required>
+                                                        <span class="psw_action">
+                                                            <svg viewBox='0 0 193.5 116' (click)="hide = !hide">
+                                                                <circle class='eye pupil pupil--close' cx='96.8' cy='58' r='24' [ngClass]="{'pupil--close' : hide}"/>
+                                                                <path class='eye lid lid--close' [ngClass]="{'lid--close' : hide}" d='M5,58L5,58C23.4,26.3,57.6,5,96.8,5c39.3,0,73.8,21.3,91.8,53l0,0c0,0-26.7,53-91.8,53S5,58,5,58z'/>
+                                                              </svg>
+                                                        </span>
+                                                    </ion-input>
+                                                </div>
+                                            </div>
+                                        </ion-col>
+                                    </ion-row>
+                                </div>
+                                
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div class="forgot-signup-text">
+                                            <span class="forgot-text" (click)="userAuthenticateModal('forgotPassword', '', '')">Forgot Password?</span>
+                                            <span class="sign-up-text">New User?  <i (click)="userAuthenticateModal('signUp', '', '')"> Sign Up</i></span>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- submit button -->
+                    <ion-row>
+                        <ion-col class="ion-text-center modal-submit modal-footer" size-xs="12" size-sm="12" size-md="12"  size-lg="12" >
+                            <ion-button  size="default"
+                            type="submit" [disabled]="!loginModalForm.valid" 
+                            tooltip="Save" flow="up">
+                                <ion-spinner *ngIf="form_submit_text == 'Submitting'" name="crescent"></ion-spinner> 
+                                <span class="submitText">{{form_submit_text}}</span>
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+                </form>
+                
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <!-- sign In form end -->
+
+    <!-- ================== forgot Passwordmodal ======= -->
+    <ion-grid  *ngIf="get_identifier == 'forgotPassword'" class="sign-in">
+        <ion-row>
+            <ion-col size="12">
+                <form class="common-modal"  #forgotModalForm="ngForm" (ngSubmit)="onSubmit(forgotModalForm)"  (keyup.enter)="onSubmit(forgotModalForm)"  novalidate>
+                    <div class="modal-body">
+                        <!-- for edit -->
+                        <input type="hidden" name="_method" [(ngModel)]="onEditField">
+                        <!-- Deposit Date -->
+                        <div class="change-password-wrapper">
+                            <div class="change-password-inner">
+
+                                <!-- Email -->
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div>
+                                            <ion-label position="floating">Email <sup>*</sup> </ion-label>
+                                            <div>
+                                                <ion-input type="email" name="email" [(ngModel)]="model.email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" email clearInput required>
+                                                </ion-input>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div class="forgot-signup-text">
+                                            <span class="sign-up-text"> Existing User ? <i (click)="userAuthenticateModal('signIn', '', '')"> Sign In</i></span>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- submit button -->
+                    <ion-row>
+                        <ion-col class="ion-text-center modal-submit modal-footer" size-xs="12" size-sm="12" size-md="12"  size-lg="12" >
+                            <ion-button  size="default"
+                            type="submit" [disabled]="!forgotModalForm.valid" 
+                            tooltip="Save" flow="up">
+                                <ion-spinner *ngIf="form_submit_text == 'Submitting'" name="crescent"></ion-spinner> 
+                                <span class="submitText">{{form_submit_text}}</span>
+                            </ion-button>
+                            <!-- <ion-button (click)="closeModal()" size="default" fill="clear" color="danger">
+                                <ion-icon name="close"></ion-icon>
+                                Cancel
+                            </ion-button> -->
+                        </ion-col>
+                    </ion-row>
+                </form>
+                
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <!-- forgot Password form end -->
+    <!-- ================== signUp modal ======= -->
+    <ion-grid  *ngIf="get_identifier == 'signUp'">
+        <ion-row>
+            <ion-col size="12">
+                <form class="common-modal"  #addModalForm="ngForm" (ngSubmit)="onSubmit(addModalForm)" (keyup.enter)="onSubmit(addModalForm)" novalidate>
+                    <div class="modal-body">
+                        <!-- for edit -->
+                        <input type="hidden" name="_method" [(ngModel)]="onEditField">
+                        <!-- Deposit Date -->
+                        <div class="change-password-wrapper">
+                            <div class="change-password-inner">
+
+                                <!-- name -->
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div>
+                                            <ion-label position="floating">Name <sup>*</sup> </ion-label>
+                                            <div>
+                                                <ion-input name="name" [(ngModel)]="model.name" clearInput required>
+                                                </ion-input>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- mobile -->
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div>
+                                            <ion-label position="floating">Cell Phone <sup>*</sup> </ion-label>
+                                            <div>
+                                                <ion-input OnlyNumber="true" type="tel" minlength="1" maxlength="20" name="phone_no" [(ngModel)]="model.phone_no" clearInput required></ion-input>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- email -->
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div>
+                                            <ion-label position="floating">Email <sup>*</sup> </ion-label>
+                                            <div>
+                                                <ion-input type="email" name="email" [(ngModel)]="model.email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" email clearInput required>
+                                                </ion-input>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+                                <!-- email -->
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div>
+                                            <ion-label position="floating">Password <sup>*</sup> </ion-label>
+                                            <div>
+                                                <ion-input [type]="hide ? 'password' : 'text'" name="password" [(ngModel)]="model.password" class="password"   clearInput required>
+                                                    <span class="psw_action">
+                                                        <svg viewBox='0 0 193.5 116' (click)="hide = !hide">
+                                                            <circle class='eye pupil pupil--close' cx='96.8' cy='58' r='24' [ngClass]="{'pupil--close' : hide}"/>
+                                                            <path class='eye lid lid--close' [ngClass]="{'lid--close' : hide}" d='M5,58L5,58C23.4,26.3,57.6,5,96.8,5c39.3,0,73.8,21.3,91.8,53l0,0c0,0-26.7,53-91.8,53S5,58,5,58z'/>
+                                                          </svg>
+                                                    </span>
+                                                </ion-input>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                                
+
+                                <!-- Terms & condition -->
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div class="tramsconditionCheck">
+                                            <label>
+                                                <input type="checkbox" name="acceptTerms" id="acceptTerms" class="form-check-input" [(ngModel)]="model.acceptTerms" #acceptTerms="ngModel" required>
+            
+                                                <span class="ion-padding-start">I’ve read and accept the <a class="terms-condtion-text" (click)="goToPage('cms/terms-and-conditions', '')" target="_blank">Terms & Conditions</a></span>
+                                            </label>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- submit button -->
+                    <ion-row>
+                        <ion-col class="ion-text-center modal-submit modal-footer" size-xs="12" size-sm="12" size-md="12"  size-lg="12" >
+                            <ion-button  size="default"
+                            type="submit" [disabled]="!addModalForm.valid" 
+                            tooltip="Save" flow="up">
+                                <ion-spinner *ngIf="form_submit_text == 'Submitting'" name="crescent"></ion-spinner> 
+                                <span class="submitText">{{form_submit_text}}</span>
+                            </ion-button>
+                            <!-- <ion-button (click)="closeModal()" size="default" fill="clear" color="danger">
+                                <ion-icon name="close"></ion-icon>
+                                Cancel
+                            </ion-button> -->
+                        </ion-col>
+                    </ion-row>
+                </form>
+                
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <!-- signUp form end -->
+    <!-- ================== rating modal ======= -->
+    <ion-grid  *ngIf="get_identifier == 'rating'" class="sign-in">
+        <ion-row>
+            <ion-col size="12">
+                <form class="common-modal"  #ratingModalForm="ngForm" (ngSubmit)="onSubmit(ratingModalForm)"  (keyup.enter)="onSubmit(ratingModalForm)"  novalidate>
+                    <div class="modal-body">
+                        <!-- for edit -->
+                        <input type="hidden" name="_method" [(ngModel)]="onEditField">
+                        <!-- Deposit Date -->
+                        <div class="rating-wrapper">
+                            <div class="rating-inner">
+                                <img src="assets/images/rating.jpg">
+                                <!-- rating -->
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div class="rating-show">
+                                            <!-- rating component call here -->
+                                            <!-- item.intRating always need to number type not string -->
+                                            <app-rating [rating]='1' [itemId]='1' (ratingClick)='ratingComponentClick($event)'></app-rating>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+                                <!-- Reviews -->
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div>
+                                            <ion-label position="floating">Review</ion-label>
+                                            <div>
+                                                <ion-textarea placeholder="Share details of your own experience at this place" class="query-textarea"  name="review" [(ngModel)]="model.review" clearInput ></ion-textarea>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- submit button -->
+                    <ion-row>
+                        <ion-col class="ion-text-center modal-submit modal-footer" size-xs="12" size-sm="12" size-md="12"  size-lg="12" >
+                            <ion-button  size="default"
+                            type="submit" [disabled]="!ratingModalForm.valid" 
+                            tooltip="Save" flow="up">
+                                <ion-spinner *ngIf="form_submit_text == 'Submitting'" name="crescent"></ion-spinner> 
+                                <span class="submitText">{{form_submit_text}}</span>
+                            </ion-button>
+                            <!-- <ion-button (click)="closeModal()" size="default" fill="clear" color="danger">
+                                <ion-icon name="close"></ion-icon>
+                                Cancel
+                            </ion-button> -->
+                        </ion-col>
+                    </ion-row>
+                </form>
+                
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <!-- rating modal end -->
+
+    <!-- ================== change password modal ======= -->
+    <ion-grid  *ngIf="this.get_identifier == 'change_password_modal'">
+        <ion-row>
+            <ion-col size="12">
+                <form class="common-modal"  #changePassswordeModalForm="ngForm" (ngSubmit)="onSubmit(changePassswordeModalForm)" [mustMatch]="['new_password', 'confirm_password']" novalidate>
+                    <div class="modal-body">
+                        <!-- for edit -->
+                        <input type="hidden" name="_method" [(ngModel)]="onEditField">
+                        <!-- Deposit Date -->
+                        <div class="change-password-wrapper">
+                            <div class="change-password-inner">
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div>
+                                            <ion-label position="floating">Old Password <sup>*</sup> </ion-label>
+                                            <div>
+                                                <ion-input type="password" name="old_password" [(ngModel)]="model.old_password" clearInput required>
+                                                </ion-input>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div>
+                                            <ion-label position="floating">New Password <sup>*</sup> </ion-label>
+                                            <div>
+                                                <ion-input 
+                                                type="password" 
+                                                name="new_password" 
+                                                [(ngModel)]="model.new_password" 
+                                                #password="ngModel"
+                                                clearInput required>
+                                                </ion-input>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div>
+                                            <ion-label position="floating">Confirm Password <sup>*</sup> </ion-label>
+                                            <div>
+                                                <ion-input 
+                                                type="password" 
+                                                name="confirm_password" 
+                                                [(ngModel)]="model.confirm_password" clearInput
+                                                #confirmPassword="ngModel"
+                                                required>
+                                                </ion-input>
+                                                <!-- [ngClass]="{ 'is-invalid': confirmPassword.invalid}" -->
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- submit button -->
+                    <ion-row>
+                        <ion-col class="ion-text-center modal-submit modal-footer" size-xs="12" size-sm="12" size-md="12"  size-lg="12" >
+                            
+                                <ion-button size="default"
+                                type="submit" [disabled]="!changePassswordeModalForm.valid" 
+                                tooltip="Save" flow="up">
+                                    <ion-spinner *ngIf="form_submit_text == 'Submitting'" name="crescent"></ion-spinner> 
+                                    <span class="submitText">{{form_submit_text}}</span>
+                                </ion-button>
+                            
+                        </ion-col>
+                    </ion-row>
+                </form>
+                
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <!-- ================== job apply query modal ======= -->
+    <ion-grid  *ngIf="get_identifier == 'apply_query'" class="sign-in">
+        <ion-row>
+            <ion-col size="12">
+                <form class="common-modal"  #ModalForm="ngForm" (ngSubmit)="onSubmit(ModalForm)"  (keyup.enter)="onSubmit(ModalForm)"  novalidate>
+                    <div class="modal-body">
+                        <!-- for edit -->
+                        <input type="hidden" name="_method" [(ngModel)]="onEditField">
+                        <!-- Deposit Date -->
+                        <div class="change-password-wrapper">
+                            <div class="change-password-inner">
+
+                                <!-- Email -->
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div>
+                                            <ion-label position="floating">Query: (Optional)</ion-label>
+                                            <div>
+                                                <ion-textarea class="query-textarea"  name="query" [(ngModel)]="model.query" clearInput ></ion-textarea>
+
+                                                <input type="hidden" name="status" [(ngModel)]="jobApplyStatus">
+
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- submit button -->
+                    <ion-row>
+                        <ion-col class="ion-text-center modal-submit modal-footer" size-xs="12" size-sm="12" size-md="12"  size-lg="12" >
+                            <ion-button  size="default"
+                            type="submit" [disabled]="!ModalForm.valid" 
+                            tooltip="Save" flow="up">
+                                <ion-spinner *ngIf="form_submit_text == 'Submitting'" name="crescent"></ion-spinner> 
+                                <span class="submitText">{{form_submit_text}}</span>
+                            </ion-button>
+                            <!-- <ion-button (click)="closeModal()" size="default" fill="clear" color="danger">
+                                <ion-icon name="close"></ion-icon>
+                                Cancel
+                            </ion-button> -->
+                        </ion-col>
+                    </ion-row>
+                </form>
+                
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <!-- forgot Password form end -->
+
+    <!-- ================== on pay modal (Razorpay payment getway) ======= -->
+    <ion-grid  *ngIf="get_identifier == 'onpay'" class="sign-in">
+        <ion-row>
+            <ion-col size="12">
+                <!-- <form action="success.php" method="POST">
+                    <script src="https://checkout.razorpay.com/v1/checkout.js"
+                        data-key="rzp_test_oBBldknGgfDRpv"
+                        data-amount="10000"
+                        data-buttontext="Pay Now"
+                        data-name="Test Product"
+                        data-description="Test Product Description"
+                        data-image="https://www.2checkout.com/resources/en/site_pages/2checkout-footer-logo.png"
+                        data-prefill.name="Soumyadeep Biswas"
+                        data-prefill.contact="9851115419"
+                        data-prefill.email="soumya.bisu@gmail.com"
+                        data-theme.color="#F37254">
+                    </script>  
+                    <input type="hidden" value="Hidden Element" name="hidden">  
+                </form>  -->
+                
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <!-- on pay end -->
+
+    <!-- ================== get in touch form modal ======= -->
+    <ion-grid  *ngIf="get_identifier == 'get_in_touch'">
+        <ion-row>
+            <ion-col size="12">
+                <form class="common-modal"  #addModalForm="ngForm" (ngSubmit)="onSubmit(addModalForm)" (keyup.enter)="onSubmit(addModalForm)" [mustMatch]="['new_password', 'confirm_password']" novalidate>
+                    <div class="modal-body">
+                        <!-- for edit -->
+                        <input type="hidden" name="_method" [(ngModel)]="onEditField">
+                        <input *ngIf="senduserId" type="hidden" name="user_id" [(ngModel)]="senduserId">
+                        <input *ngIf="senduserId" type="hidden" name="status" [(ngModel)]="senduserIdStatus">
+                        <!-- Deposit Date -->
+                        <div class="change-password-wrapper">
+                            <div class="change-password-inner">
+
+                                <!-- fname -->
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div>
+                                            <ion-label position="floating">First Name <sup>*</sup> </ion-label>
+                                            <div>
+                                                <ion-input name="fname" [(ngModel)]="model.fname" clearInput required>
+                                                </ion-input>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- lname -->
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div>
+                                            <ion-label position="floating">Last Name <sup>*</sup> </ion-label>
+                                            <div>
+                                                <ion-input name="lname" [(ngModel)]="model.lname" clearInput required>
+                                                </ion-input>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- mobile -->
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div>
+                                            <ion-label position="floating">Mobile <sup>*</sup> </ion-label>
+                                            <div>
+                                                <ion-input OnlyNumber="true" type="tel" minlength="1" maxlength="20" name="mobile" [(ngModel)]="model.mobile" clearInput required></ion-input>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- email -->
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div>
+                                            <ion-label position="floating">Email <sup>*</sup> </ion-label>
+                                            <div>
+                                                <ion-input type="email" name="email" [(ngModel)]="model.email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" email clearInput required>
+                                                </ion-input>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- resume -->
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div class="file_upload form-item">
+                                            <ion-label position="floating">Resume</ion-label>
+                                            <div class="normal-file-uploading">
+                                                <span class="upload-file resume">
+                                                    Upload resume
+                                                    <input [(ngModel)]="model.resume2" type="file" (change)="normalFileUpload($event, model.resume2, 'resume')" placeholder="Upload file" [ngModelOptions]="{standalone: true}" accept=".pdf,.doc,.docx">
+                                                </span>
+                                                <!-- accept=".pdf,.jpg,.doc,.docx" -->
+        
+                                                <span [hidden]="!uploadresumePathShow" class="file-name">{{model.resume2}}</span>
+        
+                                                <ion-button class="download-resume download" shape="round" *ngIf="model.resume && !uploadresumePathShow" (click)="onExport('single', model.resume)">
+                                                    <ion-icon slot="start" name="download"></ion-icon>
+                                                    Download
+                                                </ion-button>
+        
+                                                <!-- <span [hidden]="!model.resume" class="file-name">{{model.resume}}</span> -->
+        
+                                               <!--  <span class="image-clear" (click)="fileCross(model.resume2, 'resume')" [hidden]="!model.resume && !model.resume2">
+                                                    <ion-icon name="close"></ion-icon>
+                                                </span> -->
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- submit button -->
+                    <ion-row>
+                        <ion-col class="ion-text-center modal-submit modal-footer" size-xs="12" size-sm="12" size-md="12"  size-lg="12" >
+                            <ion-button  size="default"
+                            type="submit" [disabled]="!addModalForm.valid" 
+                            tooltip="Save" flow="up">
+                                <ion-spinner *ngIf="form_submit_text == 'Submitting'" name="crescent"></ion-spinner> 
+                                <span class="submitText">{{form_submit_text}}</span>
+                            </ion-button>
+                            <!-- <ion-button (click)="closeModal()" size="default" fill="clear" color="danger">
+                                <ion-icon name="close"></ion-icon>
+                                Cancel
+                            </ion-button> -->
+                        </ion-col>
+                    </ion-row>
+                </form>
+                
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <!-- get in touch form end -->
+
+    <!-- ================== Commercial Form Modal ======= -->
+    <ion-grid  *ngIf="get_identifier == 'property'">
+        <ion-row>
+            <ion-col size="12">
+                <form class="common-modal"  #addModalForm="ngForm" (ngSubmit)="onCommercialSubmit(addModalForm)" (keyup.enter)="onCommercialSubmit(addModalForm)" novalidate>
+                    <div class="modal-body">
+                        <!-- for edit -->
+                        <!-- <input type="hidden" name="_method" [(ngModel)]="onEditField"> -->
+                        <!-- Deposit Date -->
+                        <div class="change-password-wrapper">
+                            <div class="change-password-inner">
+
+                                <!-- Property Type -->
+                                <ion-row>
+                                    <ion-col size-xs="12" size-sm="12" size-md="12"  size-lg="12">
+                                        <ion-label position="floating">Ask for Property <sup>*</sup></ion-label>
+                                        <ng-select #categorySerch
+                                            [loading]="selectLoading"
+                                            [dropdownPosition]="'bottom'"
+                                            placeholder="Please Select property"
+                                            [items]="categoryList"
+                                            bindLabel="title"
+                                            name="property_category"
+                                            bindValue="id"
+                                            [searchable]="false"
+                                            (change)="onChangeCategory(model.property_category)"
+                                            [(ngModel)]="model.property_category"
+                                            required
+                                            >
+                                            <ng-template ng-header-tmp>
+                                                <input placeholder="Search" class="dropdown-custom-search" type="text" (input)="categorySerch.filter($event.target.value)" [autofocus]="true" />
+                                            </ng-template>
+                                        </ng-select>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- name -->
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div>
+                                            <ion-label position="floating">Name <sup>*</sup> </ion-label>
+                                            <div>
+                                                <ion-input placeholder="Enter Full Name" name="name" [(ngModel)]="model.name" clearInput required>
+                                                </ion-input>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+                                <!-- email -->
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div>
+                                            <ion-label position="floating">Email <sup>*</sup> </ion-label>
+                                            <div>
+                                                <ion-input placeholder="Enter email" name="email" [(ngModel)]="model.email" clearInput required>
+                                                </ion-input>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- mobile -->
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <div>
+                                            <ion-label position="floating">Mobile No <sup>*</sup> </ion-label>
+                                            <div>
+                                                <ion-input OnlyNumber="true" placeholder="Enter Mobile No" type="tel" minlength="10" maxlength="10" name="phone_no" [(ngModel)]="model.phone_no" clearInput required></ion-input>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!--Gender -->
+                                <ion-row>
+                                    <ion-col size-xs="12" size-sm="12" size-md="12"  size-lg="12">
+                                        <div class="form-item mb-0">
+                                            <ion-label position="floating">You want to! <sup>*</sup></ion-label>
+                                            <ion-list>
+                                                <div class="radio-item">
+                                                    <input type="radio" id="buy" value="buy" [(ngModel)]="model.transaction_type" name="transaction_type">
+                                                    <label for="buy">Buy</label>
+                                                </div>
+                                                <div class="radio-item">
+                                                    <input type="radio" id="sell" value="sell" [(ngModel)]="model.transaction_type" name="transaction_type">
+                                                    <label for="sell">Sell</label>
+                                                </div>
+                                                <div class="radio-item">
+                                                    <input type="radio" id="lease" value="lease" [(ngModel)]="model.transaction_type" name="transaction_type">
+                                                    <label for="lease">Lease</label>
+                                                </div>
+                                            </ion-list>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- Property Type -->
+                                <ion-row *ngIf="model.property_category != 6">
+                                    <ion-col size-xs="12" size-sm="12" size-md="12"  size-lg="12">
+                                        <ion-label position="floating">Property Type <sup>*</sup></ion-label>
+                                        <ng-select   #propertySerch
+                                            [loading]="selectLoading"
+                                            [dropdownPosition]="'bottom'"
+                                            placeholder="Please Select property"
+                                            [items]="propertyList"
+                                            bindLabel="type"
+                                            name="property_type"
+                                            bindValue="id"
+                                            [searchable]="false"
+                                            (change)="onChangeProperty(model.property_type)"
+                                            [(ngModel)]="model.property_type"
+                                            required
+                                            >
+                                            <ng-template ng-header-tmp>
+                                                <input placeholder="Search" class="dropdown-custom-search" type="text" (input)="propertySerch.filter($event.target.value)" [autofocus]="true" />
+                                            </ng-template>
+                                        </ng-select>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- Budget -->
+                                <ion-row *ngIf="model.property_category != 6">
+                                    <ion-col size-xs="12" size-sm="12" size-md="12"  size-lg="12">
+                                        <ion-label position="floating">Budget <sup>*</sup></ion-label>
+                                        <ng-select   #budgetSerch
+                                            [loading]="selectLoading"
+                                            [dropdownPosition]="'bottom'"
+                                            placeholder="Please Select Budget"
+                                            [items]="budgetList"
+                                            bindLabel="budget"
+                                            name="budget"
+                                            bindValue="budget"
+                                            [searchable]="false"
+                                            [(ngModel)]="model.budget"
+                                            required
+                                            >
+                                            <ng-template ng-header-tmp>
+                                                <input placeholder="Search" class="dropdown-custom-search" type="text" (input)="budgetSerch.filter($event.target.value)" [autofocus]="true" />
+                                            </ng-template>
+                                        </ng-select>
+                                    </ion-col>
+                                </ion-row>
+                            
+                                <!-- Location -->
+                                <ion-row *ngIf="model.property_category != 6">
+                                    <ion-col size-xs="12" size-sm="12" size-md="12"  size-lg="12">
+                                        <div>
+                                            <ion-label position="floating">Location <sup>*</sup></ion-label>
+                                            <ion-textarea name="location" placeholder="desired location" [(ngModel)]="model.location" required clearOnEdit="true"></ion-textarea>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- Intended Use -->
+                                <ion-row *ngIf="model.property_category != 6">
+                                    <ion-col size-xs="12" size-sm="12" size-md="12"  size-lg="12">
+                                        <div>
+                                            <ion-label position="floating">Intended Use</ion-label>
+                                            <ion-textarea name="intended_use" [(ngModel)]="model.intended_use" clearOnEdit="true"></ion-textarea>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- Luxury Estates Start -->
+                                <!-- *****Buy***** -->
+                                <!-- Budget -->
+                                <ion-row *ngIf="model.property_category == 6 && model.transaction_type == 'buy'">
+                                    <ion-col size-xs="12" size-sm="12" size-md="12"  size-lg="12">
+                                        <div>
+                                            <ion-label position="floating">Budget <sup>*</sup> </ion-label>
+                                            <div>
+                                                <ion-input name="budget" placeholder="Enter Budget" [(ngModel)]="model.budget" clearInput required>
+                                                </ion-input>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- Location -->
+                                <ion-row *ngIf="model.property_category == 6 && model.transaction_type == 'buy'">
+                                    <ion-col size-xs="12" size-sm="12" size-md="12"  size-lg="12">
+                                        <div>
+                                            <ion-label position="floating">Location <sup>*</sup></ion-label>
+                                            <ion-textarea name="location" placeholder="desired location" [(ngModel)]="model.location" required clearOnEdit="true"></ion-textarea>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- Feature -->
+                                <ion-row *ngIf="model.property_category == 6 && model.transaction_type == 'buy'">
+                                    <ion-col size-xs="12" size-sm="12" size-md="12"  size-lg="12">
+                                        <div>
+                                            <ion-label position="floating">Feature <sup>*</sup></ion-label>
+                                            <ion-textarea name="features" placeholder="Property Feature" [(ngModel)]="model.features" required clearOnEdit="true"></ion-textarea>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- Area Requried -->
+                                <ion-row *ngIf="model.property_category == 6 && model.transaction_type == 'buy'">
+                                    <ion-col size-xs="12" size-sm="12" size-md="12"  size-lg="12">
+                                        <div>
+                                            <ion-label position="floating">Area Requried(Sq. Ft.) <sup>*</sup> </ion-label>
+                                            <div>
+                                                <ion-input name="area" OnlyNumber="true" placeholder="Enter Area" [(ngModel)]="model.area" clearInput required>
+                                                </ion-input>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- *****Buy***** -->
+
+                                <!-- *****sell***** -->
+                                <!-- Address -->
+                                <ion-row *ngIf="model.property_category == 6 && model.transaction_type == 'sell'">
+                                    <ion-col size-xs="12" size-sm="12" size-md="12"  size-lg="12">
+                                        <div>
+                                            <ion-label position="floating">Address <sup>*</sup></ion-label>
+                                            <ion-textarea name="address" placeholder="Address" [(ngModel)]="model.address" required clearOnEdit="true"></ion-textarea>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- Property-details -->
+                                <ion-row *ngIf="model.property_category == 6 && model.transaction_type == 'sell'">
+                                    <ion-col size-xs="12" size-sm="12" size-md="12"  size-lg="12">
+                                        <div>
+                                            <ion-label position="floating">Property details <sup>*</sup></ion-label>
+                                            <ion-textarea name="property_details" placeholder="Property details" [(ngModel)]="model.property_details" required clearOnEdit="true"></ion-textarea>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+                                <!-- *****sell***** -->
+                                <!-- *****lease***** -->
+                                
+                                <!-- Ideal Lease Amount -->
+                                <ion-row *ngIf="model.property_category == 6 && model.transaction_type == 'lease'">
+                                    <ion-col size-xs="12" size-sm="12" size-md="12"  size-lg="12">
+                                        <div>
+                                            <ion-label position="floating">Ideal Lease Amount(/month) <sup>*</sup> </ion-label>
+                                            <div>
+                                                <ion-input name="lease_amount" placeholder="Enter lease amount" [(ngModel)]="model.lease_amount" clearInput required>
+                                                </ion-input>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- Ideal start date -->
+                                <ion-row *ngIf="model.property_category == 6 && model.transaction_type == 'lease'">
+                                    <ion-col size-xs="12" size-sm="12" size-md="12"  size-lg="12">
+                                        <ion-label position="floating">Ideal start date <sup>*</sup></ion-label>
+                                        <ng-select 
+                                            [dropdownPosition]="'bottom'"
+                                            placeholder="Please Select start date"
+                                            [items]="timelist"
+                                            bindLabel="name"
+                                            name="start_date"
+                                            bindValue="name"
+                                            [searchable]="false"
+                                            [(ngModel)]="model.start_date"
+                                            required
+                                            >
+                                            <!-- <ng-template ng-header-tmp>
+                                                <input placeholder="Search" class="dropdown-custom-search" type="text" (input)="categorySerch.filter($event.target.value)" [autofocus]="true" />
+                                            </ng-template> -->
+                                        </ng-select>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- Ideal budget -->
+                                <ion-row *ngIf="model.property_category == 6 && model.transaction_type == 'lease'">
+                                    <ion-col size-xs="12" size-sm="12" size-md="12"  size-lg="12">
+                                        <div>
+                                            <ion-label position="floating">Ideal budget <sup>*</sup> </ion-label>
+                                            <div>
+                                                <ion-input name="budget" placeholder="Ideal budget" [(ngModel)]="model.budget" clearInput required>
+                                                </ion-input>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+                               
+                                
+                                <!-- *****lease***** -->
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- submit button -->
+                    <ion-row>
+                        <ion-col class="ion-text-center modal-submit modal-footer" size-xs="12" size-sm="12" size-md="12"  size-lg="12" >
+                            <ion-button  size="default"
+                            type="submit" [disabled]="!addModalForm.valid" 
+                            tooltip="Save" flow="up">
+                                <ion-spinner *ngIf="form_submit_text == 'Submitting'" name="crescent"></ion-spinner> 
+                                <span class="submitText">{{form_submit_text}}</span>
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+                </form>
+                
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <!-- Commercial Form Modal -->
+    
+</ion-content>

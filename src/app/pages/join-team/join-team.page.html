@@ -1,0 +1,127 @@
+<ion-content [scrollEvents]="true" (ionScroll)="onScrollHedearFix($event)">
+  <!-- common header show -->
+  <common-header [ngClass]="{'fix-header':isFixedHeader}"></common-header>
+  <!-- Sub header start -->
+  <div class="sub-header">
+    <div class="sub-header-inner">
+      <h1>Join Our Team</h1>
+      <div class="breadcrumbs"><a class="breadcrumbs_item" href="#">Home</a><span class="breadcrumbs_delimiter">|</span><span class="breadcrumbs_item current">Join Our Team</span></div>
+    </div>
+  </div>
+  <!-- Sub header end -->
+  <!--------- details section start ------- -->
+  <div class="detailsPage-wrapper">
+    <!-- Joining content start -->
+    <div class="joinig-content">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-5">
+            <div class="content-part">
+              <h2>{{viewData?.jointeam?.title}}</h2>
+              <p [innerHTML]="viewData?.jointeam?.description"></p>
+              <div class="custom-btn">
+                <ion-button size="default" type="button" (click)="userAuthenticateModal('signUp', '', '')">
+                  <span class="submitText">Join Now</span>
+                </ion-button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-7">
+            <div class="image-part">
+              <img src="{{file_url}}/{{viewData?.jointeam?.path}}/{{viewData?.jointeam?.image}}">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Joining content end -->
+
+    <!-- benefits section start -->
+    <div class="benefits">
+      <div class="container">
+        <div class="section-heading">
+          <h2 *ngIf="viewData?.benefits?.title" [innerHTML]="viewData?.benefits?.title"></h2>
+          <p *ngIf="viewData?.benefits?.description" [innerHTML]="viewData?.benefits?.description"></p>
+        </div> 
+        <div class="row">
+          <div class="col-lg-2 col-md-4 col-sm-6" *ngFor="let benefitsItem of viewData?.benefits?.data">
+            <div class="flip-card">
+              <div class="flip-card-inner">
+                  <div class="flip-card-front">
+                      <div class="flipwrapper-front"><img alt="Financial Freedom" src="{{file_url}}/{{benefitsItem?.path}}/{{benefitsItem?.image}}">
+                          <h3>{{benefitsItem?.title}}</h3>
+                      </div>
+                  </div>
+                  <div class="flip-card-back">
+                      <h3>{{benefitsItem?.title}}</h3>
+                      <p>{{benefitsItem?.description}}</p>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- benefits section end -->
+
+    <!-- our agents section start -->
+    <div class="our-agent">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12">
+            <div class="section-heading">
+              <h2 *ngIf="viewData?.agents?.title" [innerHTML]="viewData?.agents?.title"></h2>
+              <p *ngIf="viewData?.agents?.description" [innerHTML]="viewData?.agents?.description"></p>
+            </div> 
+            <div class="note-slider wow fadeInUp" data-wow-delay="0.15s" data-wow-duration="2s">
+              <ngx-slick-carousel class="carousel" 
+              #slickModal="slick-carousel" 
+              [config]="noteSlideConfig" 
+              (init)="slickInit($event)"
+              >
+
+              <!-- note slider -->
+              <div ngxSlickItem *ngFor="let agentsitem of viewData?.agents?.data" class="slide">
+                <div class="team-wrap">
+                  <div class="team-img">
+                      <img src="assets/images/avatar.jpg" alt="">
+                  </div>
+                  <div class="team-content">
+                      <div class="team-info">
+                          <h3>{{agentsitem?.first_name}} {{agentsitem?.last_name}}</h3>
+                          <p>{{agentsitem?.first_name}}</p>
+                          <!-- <div class="team-socials">
+                              <ul>
+                                  <li>
+                                      <a href="#" title="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                      <a href="#" title="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                      <a href="#" title="instagran"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                  </li>
+                              </ul>
+                          </div> -->
+                      </div>
+                  </div>
+                </div>
+              </div>
+              </ngx-slick-carousel>
+
+            </div>
+          </div>
+        </div>
+        <div class="ta-right">
+          <div class="custom-btn">
+            <ion-button size="default" type="button" [routerLink]="['/', 'all-agents']">
+              <span class="submitText view-icon">View All </span>
+            </ion-button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- our agents section end -->
+  </div>
+  <!-- details section end -->
+
+  <!-- common footer show -->
+  <common-footer></common-footer>
+
+</ion-content>

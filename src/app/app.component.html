@@ -1,0 +1,110 @@
+<ion-app (window:resize)="onResize($event)">
+    <ion-split-pane when="lg">
+      <!------------ Side Menu Starts --------------->
+        <ion-menu class="side-main-menu" contentId="menucontent">
+          <!------------ Menu Header Starts ------------->
+          <ion-header>
+            <ion-toolbar >
+              <ion-title>
+                <div class="logo header_logo" (click)="goToPage('home', '')">
+                  <img alt="logo" src="{{file_url}}/{{footer?.all_data?.path}}/{{footer?.all_data?.logo_icon}}">
+                  <!-- <img src="{{file_url}}/{{siteInfo?.logo}}" alt="logo"> -->
+                </div>
+              </ion-title>
+            </ion-toolbar>
+          </ion-header>
+          <!------------------ Menu Header ends -------- -->
+          <ion-content class="menu-container">
+            <div class="text-center" >
+              
+              <!-- menu loading show-->
+              <div class="menu-loading" *ngIf="userInfodDataLoading">
+                <ion-progress-bar type="indeterminate" reversed="true"></ion-progress-bar>
+                <div class="menu-loading-inner">
+                  <ion-spinner name="dots" color="light" style="zoom:2.0;"></ion-spinner>
+                </div>
+              </div>
+                
+              <!-------------------super admin Menu Content Starts ------------>
+                <mat-accordion color="primary" class="mat-menu display-inline-block margin-top-10">
+
+                  <mat-expansion-panel class="margin-bottom-5" #example routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" [routerLink]="['/','home']">
+
+                      <!-- hideToggle="true" #iconanchor -->
+                      <!-- no + - -->
+                      <mat-expansion-panel-header class="mat-header-bg" [class.active-parent] = "example.expanded">
+                        <ion-menu-toggle auto-hide="false">
+                          <mat-panel-title class = "font-size-13 line-height-16">
+                            <ion-icon class="margin-right-10 font-size-16"  name="home" slot="start"></ion-icon>
+                            Home
+                          </mat-panel-title>
+                        </ion-menu-toggle>
+                      </mat-expansion-panel-header>
+                  </mat-expansion-panel>
+                  <mat-expansion-panel class="margin-bottom-5" #example routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                     <!-- work + - -->
+                     <mat-expansion-panel-header class="mat-header-bg" [class.active-parent] = "example.expanded">
+                      <mat-panel-title class = "font-size-13 line-height-16">
+                        <ion-icon class="margin-right-10 font-size-16" name="options" slot="start"></ion-icon>
+                        Services
+                      </mat-panel-title>
+                      <mat-icon *ngIf="!example.expanded">add</mat-icon>
+                      <mat-icon *ngIf="example.expanded">remove</mat-icon>
+                    </mat-expansion-panel-header>
+                    <ion-list class="list-items bg-none">
+                      <ion-menu-toggle auto-hide="false">
+                        <ion-item  (click)="goToPage('join-team', '')" class="sub-item" routerLinkActive="router-link-active" routerDirection="root" [routerLinkActiveOptions]="{ exact: true }">
+                          <ion-icon class="font-size-20" name="reorder" slot="start"></ion-icon>
+                          <ion-label class="font-size-12">
+                            Join our team
+                          </ion-label>
+                        </ion-item>
+                        <ion-item (click)="goToPage('buy-sell-properties', '')" class="sub-item" routerLinkActive="router-link-active" routerDirection="root" [routerLinkActiveOptions]="{ exact: true }">
+                          <ion-icon class="font-size-20" name="reorder" slot="start"></ion-icon>
+                          <ion-label class="font-size-12">
+                            Buy/Sell Properties
+                          </ion-label>
+                        </ion-item>
+                        <ion-item (click)="goToPage('request-appointment', '')" class="sub-item" routerLinkActive="router-link-active" routerDirection="root" [routerLinkActiveOptions]="{ exact: true }">
+                          <ion-icon class="font-size-20" name="reorder" slot="start"></ion-icon>
+                          <ion-label class="font-size-12">
+                            Request for appointment
+                          </ion-label>
+                        </ion-item>
+                      </ion-menu-toggle>
+                    </ion-list>
+                  </mat-expansion-panel>
+                  <mat-expansion-panel class="margin-bottom-5" #example routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" [routerLink]="['/','about-us']">
+                    <mat-expansion-panel-header class="mat-header-bg" [class.active-parent] = "example.expanded">
+                      <ion-menu-toggle auto-hide="false">
+                        <mat-panel-title class = "font-size-13 line-height-16">
+                          <ion-icon class="margin-right-10 font-size-16"  name="book" slot="start"></ion-icon>
+                          About us
+                        </mat-panel-title>
+                      </ion-menu-toggle>
+                    </mat-expansion-panel-header>
+                  </mat-expansion-panel>
+                  <mat-expansion-panel class="margin-bottom-5" #example routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" [routerLink]="['/','contact']">
+                    <mat-expansion-panel-header class="mat-header-bg" [class.active-parent] = "example.expanded">
+                      <ion-menu-toggle auto-hide="false">
+                        <mat-panel-title class = "font-size-13 line-height-16">
+                          <ion-icon class="margin-right-10 font-size-16"  name="chatbubbles" slot="start"></ion-icon>
+                          Contact
+                        </mat-panel-title>
+                      </ion-menu-toggle>
+                    </mat-expansion-panel-header>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              <!-------------------- super admin  Menu Content Ends -->
+
+            </div>
+
+          </ion-content>
+    
+        </ion-menu>
+      <!-- ---------- Side Menu Ends ---------------->
+
+        <ion-router-outlet id="menucontent" main></ion-router-outlet>
+    </ion-split-pane>
+    <ngx-spinner size="medium" type="ball-climbing-dot"></ngx-spinner>
+</ion-app>

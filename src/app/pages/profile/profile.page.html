@@ -1,0 +1,58 @@
+<ion-content [scrollEvents]="true" (ionScroll)="onScrollHedearFix($event)">
+	<!-- common header show -->
+	<common-header [ngClass]="{'fix-header':isFixedHeader}"></common-header>
+  	
+	<!-- Profile page start -->
+	<div class="profile-wrapper table-list-page">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-9 m-auto">
+					<div class="profile-box" *ngIf="model">
+						<div class="row">
+							<div class="profile_img">
+								<div>
+									  <img *ngIf="model?.image" src="{{file_url}}/{{model?.image}}" />
+									  <img *ngIf="!model?.image" src="assets/images/noimage.jpg" />
+	  
+									<!-- <span class="img-edit">
+										  <ion-icon slot="icon-only" name="create"></ion-icon>
+									  </span> -->
+	  
+									<p>{{model?.name}}</p>
+								</div>
+								
+							</div>
+						</div>
+					  <div class="row profile-info-inner">
+						  <!-- Edit Button -->
+						  <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							  <ion-button class="ion-float-right profile-edit" size="small" shape="round" *ngIf="model?.id" [routerLink]="['/', 'student-register', 'edit', model?.id]">Edit</ion-button>
+						  </div> -->
+						  <!-- Email -->
+						  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" *ngIf="model?.email">
+							  <div class="view-element">
+									  <i class="email material-icons">email</i> 
+									  <span class="text-name-bold">Email </span><br/>
+									  <span><b>{{model?.email}}</b></span>
+							  </div>
+						  </div>
+						  <!-- phone_no -->
+						  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" *ngIf="model?.phone_no">
+							  <div class="view-element">
+									  <i class="smartphone material-icons">phone</i> 
+									  <span class="text-name-bold">Phone </span><br/>
+									  <span><b>{{model?.phone_no}}</b></span>
+								  </div>
+						  </div>
+					  </div>
+				  </div>
+				</div>
+			</div>
+			
+
+		</div>
+	</div>
+	<!-- Profile page end -->
+	<!-- common footer show -->
+	<common-footer></common-footer>
+</ion-content>

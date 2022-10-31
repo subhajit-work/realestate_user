@@ -1,0 +1,218 @@
+<ion-content [scrollEvents]="true" (ionScroll)="onScrollHedearFix($event)">
+	<!-- common header show -->
+	<common-header [ngClass]="{'fix-header':isFixedHeader}"></common-header>
+
+	<!-- Sub header start -->
+	<div class="sub-header">
+		<div class="sub-header-inner">
+		  <h1>Contact Us </h1>
+		  <div class="breadcrumbs"><a class="breadcrumbs_item" href="#">Home</a><span class="breadcrumbs_delimiter">|</span><span class="breadcrumbs_item current">Contact Us</span></div>
+		</div>
+	</div>
+	<!-- Sub header end -->
+
+	<!-- contact us page start -->
+	<div class="associate-us-wrapper student-register-wrapper contact-us-wrapper" >
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-xs-12 col-sm-6 col-lg-5">
+					<form  #acontactusAddForm="ngForm" (ngSubmit)="onSubmit(acontactusAddForm)" class="student-register-inner">
+						<h6>Contact Us</h6>
+						<div class="row ion-padding">
+						  <div class="col-xs-12 col-sm-10 col-lg-12">
+							<div class="assessment-inner">
+							  <div class="row">
+								<!-- name -->
+								<div class="col-xs-12 col-sm-12">
+								  <div>
+									<!-- <ion-label position="floating">Name : <sup>*</sup> </ion-label> -->
+									<ion-input placeholder="Name*" name="name" [(ngModel)]="model.name" clearInput required></ion-input>
+								  </div>
+								</div>
+								<!-- email -->
+								<div class="col-xs-12 col-sm-12">
+								  <div>
+									<!-- <ion-label position="floating">Email : <sup>*</sup> </ion-label> -->
+									<ion-input placeholder="Email*" type="email" name="email" [(ngModel)]="model.email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" clearInput email required></ion-input>
+								  </div>
+								</div>
+								<!-- Mobile -->
+								<div class="col-xs-12 col-sm-12">
+								  <div>
+									<!-- <ion-label position="floating">Mobile <sup>*</sup> </ion-label> -->
+									<ion-input placeholder="Cell phone*" OnlyNumber="true" type="tel" minlength="1" maxlength="20" name="phone_no" [(ngModel)]="model.phone_no" clearInput required></ion-input>
+								  </div>
+								</div>
+								<!-- Select user type -->
+								<div class="col-xs-12 col-sm-12">
+								  <div>
+									<ng-select #visaSearch
+									[dropdownPosition]="'bottom'"
+									placeholder="You are a*"
+									[items]="userType"
+									bindLabel="name"
+									bindValue="name"
+									[searchable]="false"
+									name="service_type" 
+									[(ngModel)]="model.service_type"
+									required
+									>
+									<ng-template ng-header-tmp>
+									  <input placeholder="Search" class="dropdown-custom-search" type="text" (input)="visaSearch.filter($event.target.value)" [autofocus]="true" />
+									</ng-template>
+									</ng-select>
+								  </div>
+								</div>
+								<!-- Message -->
+								<div class="col-xs-12 col-sm-12">
+								  <div>
+									<!-- <ion-label position="floating">Message : </ion-label> -->
+									<ion-textarea placeholder="Message *" auto-grow="true" name="message" [(ngModel)]="model.message" required clearInput></ion-textarea>
+								  </div>
+								</div>
+							  </div>
+							</div>
+						  </div>
+						</div>
+						<div class="submit-button-wrapper">
+						  <div class="row ion-padding">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ion-text-center">
+							  <div class="custom-btn">
+								<!-- <ion-button class="reload clear-form" size="default" fill="clear" tooltip="Clear" flow="up" (click)="reloadPageAlert()">
+								  
+								  Clear
+								</ion-button> -->
+		  
+								<ion-button class="submit" size="default" [ngClass]="{'disabled': form_submit_text == 'Submitting'}"
+								type="submit" 
+								expand="block"
+								[disabled]="!acontactusAddForm.valid"
+								tooltip="Submit" flow="up">
+								<ion-spinner name="crescent" *ngIf="form_submit_text == 'Submitting'"></ion-spinner> 
+								<span class="submitText">{{form_submit_text}}</span>
+								</ion-button>
+								
+							  </div>
+							</div>
+						  </div>
+						</div>
+					</form>
+				</div>
+				
+				<!-- Contact Info -->
+				<div class="col-xs-12 col-sm-6 col-lg-6 offset-lg-1" *ngIf="footer">
+					<div class="detailspage-right-item contact-info">
+						<h4>Customer Support</h4>
+						<div class="job-list-inner">
+							<ul>
+								<li>
+									<div class="contact-info-item" >
+										<p class="email">
+											<span>
+												<ion-icon name="mail"></ion-icon>
+											 </span>
+											<a href="mailto:{{footer?.contact?.email?.email}}">{{ footer?.contact?.email?.email }}</a>
+											<i *ngIf="footer?.contact?.email?.alternative_email">&nbsp; / &nbsp;</i>
+											<a href="mailto:{{footer?.contact?.email?.alternative_email}}">{{footer?.contact?.email?.alternative_email}}</a>
+										</p>
+										
+										<p class="email">
+											<span>
+												<ion-icon name="call"></ion-icon>
+											</span>
+											<a href="tel:{{footer?.contact?.mobile?.phone}}">{{ footer?.contact?.mobile?.phone }}</a>
+											<i *ngIf="footer?.contact?.mobile?.alternative_phone">&nbsp; / &nbsp;</i>
+											<a href="tel:{{footer?.contact?.mobile?.alternative_phone}}">{{footer?.contact?.mobile?.alternative_phone}}</a>
+										</p>
+
+										<p class="email">
+											<span>
+												<ion-icon name="pin"></ion-icon>
+											</span>
+											<!-- <a class="new-address">Address</a> -->
+											<a class="new-address d-block text-left" [innerHTML]="footer?.all_data?.address"></a>
+										</p>
+
+										<!-- <p class="address-inner" [innerHTML]="footer?.all_data?.address"></p> -->
+
+										
+										
+										<!-- <p class="email" *ngIf="commonPageData?.sitedetails?.alt_phone"><span>Alt Phone </span> <b>:</b> 
+											<a href="tel:{{commonPageData?.sitedetails?.alt_phone}}">{{commonPageData?.sitedetails?.alt_phone}}</a>
+										</p> -->
+										
+										<!-- <p class="email" *ngIf="commonPageData?.sitedetails?.alt_email"><span>Alt Email </span> <b>:</b> 
+											<a href="mailto:{{commonPageData?.sitedetails?.alt_email}}">{{commonPageData?.sitedetails?.alt_email}}</a>
+										</p> -->
+									</div>
+								</li>
+							</ul>
+						</div>
+
+						<h4>Stay Connected</h4>
+						<div class="job-list-inner">
+							<span class="social-sites">
+								<a *ngIf="footer?.social?.facebook" target="blank" href="{{ footer?.social?.facebook }}">
+									<i class="fa fa-facebook" aria-hidden="true"></i>
+								</a>
+							</span>
+							<span class="social-sites">
+								<a *ngIf="footer?.social?.twitter" target="blank" href="{{ footer?.social?.twitter }}">
+									<i class="fa fa-twitter" aria-hidden="true"></i>
+								</a>
+							</span>
+							<span class="social-sites">
+								<a *ngIf="footer?.social?.Linkedin" target="blank" href="{{ footer?.social?.Linkedin }}">
+									<i class="fa fa-linkedin" aria-hidden="true"></i>
+								</a>
+							</span>
+							<span class="social-sites">
+								<a *ngIf="footer?.social?.youtube" target="blank" href="{{ footer?.social?.youtube }}">
+									<i class="fa fa-youtube" aria-hidden="true"></i>
+								</a>
+							</span>
+							<span class="social-sites">
+								<a *ngIf="footer?.social?.instagram" target="blank" href="{{ footer?.social?.instagram }}">
+									<i class="fa fa-instagram" aria-hidden="true"></i>
+								</a>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+					
+		</div>
+	</div>
+	<!-- contact us page start -->
+
+	<div class="gmap_canvas">
+		<iframe
+		width="100%"
+		height="500"
+		id="gmap_canvas"
+		src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2889.396257930889!2d-79.74335918450406!3d43.59829037912314!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b6a803907af0f%3A0xc37b61e6d9b99f1e!2s2000%20Argentia%20Rd%2C%20Mississauga%2C%20ON%20L5N%201W1%2C%20Canada!5e0!3m2!1sen!2sin!4v1645786365798!5m2!1sen!2sin"
+		frameborder="0"
+		scrolling="no"
+		marginheight="0"
+		marginwidth="0"            >
+		</iframe>
+		<style>
+		.mapouter {
+			position: relative;
+			text-align: right;
+			height: 500px;
+			width: 100%;
+		}
+
+		.gmap_canvas {
+			overflow: hidden;
+			background: none !important;
+			height: 500px;
+			width: 100%;
+		}
+		</style>
+	</div>
+
+	<!-- common footer show -->
+	<common-footer></common-footer>
+</ion-content>

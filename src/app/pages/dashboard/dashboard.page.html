@@ -1,0 +1,922 @@
+<ion-content [scrollEvents]="true" (ionScroll)="onScrollHedearFix($event)">
+	<!-- common header show -->
+	<common-header [ngClass]="{'fix-header':isFixedHeader}"></common-header>
+  	
+	<!-- Dashboard page start -->
+	<div class="dashboard-wrapper dashboard">
+		<div class="container" *ngIf="!viewLoadData">
+			<div class="row">
+				<div class="profile">
+					<ion-card>
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+								<!-- <div class="profile_photo">
+									<ion-item>
+									  <ion-avatar slot="start">
+									    <img src="https://cdn.betteru.in/wp-content/uploads/2018/11/23195912/1-Month-Playablo_CC.jpg">
+									  </ion-avatar>
+									  <ion-label>
+									    <h2>Sudin Mondal</h2>
+									  </ion-label>
+									</ion-item>
+								</div> -->
+								<div class="ion-padding">
+									<div class="row profile-information" >
+										<!-- Product image -->
+										<div class="col-xs-4 col-sm-4 col-md-3 col-lg-3" [routerLink]="['/', 'profile', viewData?.user_info?.id]" style="outline: none; cursor: pointer;">
+											<img *ngIf="viewData?.user_info?.profile" src="{{file_url}}/{{viewData?.user_info?.profile}}" /> 
+                        					<img *ngIf="!viewData?.user_info?.profile" src="assets/images/no-bg-img.jpg" />
+										</div>
+										<!-- Product details -->
+										<div class="col-xs-8 col-sm-8 col-md-9 col-lg-9">
+											<h4 [routerLink]="['/', 'profile', viewData?.user_info?.id]" style="outline: none;cursor: pointer;">{{viewData?.user_info?.first_name}} {{viewData?.user_info?.last_name}}</h4>
+											<p>{{viewData?.user_info?.email}}</p>
+											<p>{{viewData?.user_info?.phone_no}}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+								<div style="text-align: -webkit-center" class="profile_details">
+									<!-- <img style="width: 50px" src="https://www.nuaire.com/media/wysiwyg/chart.png"> -->
+									<!-- You can now use it in app.component.html -->
+									<circle-progress
+									[percent]="50"
+									[radius]="100"
+									[outerStrokeWidth]="16"
+									[innerStrokeWidth]="8"
+									[outerStrokeColor]="'#78C000'"
+									[innerStrokeColor]="'#C7E596'"
+									[animation]="true"
+									[animationDuration]="300"
+									></circle-progress>
+									
+								</div>
+								<div class="profile_details">
+									<ion-label class="ion-float-right black"  >
+										<b>You have completed 50% profile. Please complete Address and Education details.</b>
+										<i [routerLink]="['/', 'student-register', 'edit', viewData?.user_info?.id]">Edit</i>
+									</ion-label>
+								</div>
+							</div>
+						</div>
+					</ion-card>
+				</div>
+			</div>
+			<!-- Menu list -->
+			<div class="table-row ">
+				<mat-tab-group class="dashboard-tab">
+					<mat-tab>
+					  <ng-template mat-tab-label>
+						<mat-icon class="example-tab-icon">person</mat-icon>
+						My Profile
+					  </ng-template>
+					  <div class="tab-inner profile-tab">
+						<div class="student-register-wrapper">
+							<div class="ion-no-padding student-register-inner form-col">
+								<h6>
+									Personal Details
+									<ion-button (click)="editOrNot('profile', model.profile)">
+										<ion-icon *ngIf="model.profile" slot="icon-only" name="create"></ion-icon>
+										<ion-icon *ngIf="!model.profile" slot="icon-only" name="close-circle"></ion-icon>
+									</ion-button>
+								</h6>
+								<div *ngIf="model.profile" class="row">
+									<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+										<ion-item>
+											<ion-label>First Name</ion-label>
+											<ion-note slot="end">Subhajit</ion-note>
+										</ion-item>
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+										<ion-item>
+											<ion-label>Last Name</ion-label>
+											<ion-note slot="end">Manna</ion-note>
+										</ion-item>
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+										<ion-item>
+											<ion-label>Gender</ion-label>
+											<ion-note slot="end">Male</ion-note>
+										</ion-item>
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+										<ion-item>
+											<ion-label>D.O.B</ion-label>
+											<ion-note slot="end">Subhajit</ion-note>
+										</ion-item>
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+										<ion-item>
+											<ion-label>Marital Status</ion-label>
+											<ion-note slot="end">Manna</ion-note>
+										</ion-item>
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+										<ion-item>
+											<ion-label>Mobile</ion-label>
+											<ion-note slot="end">Male</ion-note>
+										</ion-item>
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+										<ion-item>
+											<ion-label>Linkedin profile</ion-label>
+											<ion-note slot="end">Subhajit</ion-note>
+										</ion-item>
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+										<ion-item>
+											<ion-label>Github profile</ion-label>
+											<ion-note slot="end">Manna</ion-note>
+										</ion-item>
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+										<ion-item>
+											<ion-label>Skype Id</ion-label>
+											<ion-note slot="end">Male</ion-note>
+										</ion-item>
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+										<ion-item>
+											<ion-label>Country</ion-label>
+											<ion-note slot="end">Subhajit</ion-note>
+										</ion-item>
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+										<ion-item>
+											<ion-label>State</ion-label>
+											<ion-note slot="end">Manna</ion-note>
+										</ion-item>
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+										<ion-item>
+											<ion-label>City</ion-label>
+											<ion-note slot="end">Male</ion-note>
+										</ion-item>
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+										<ion-item>
+											<ion-label>Pin</ion-label>
+											<ion-note slot="end">Subhajit</ion-note>
+										</ion-item>
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+										<ion-item>
+											<ion-label>Permanent address</ion-label>
+											<ion-note slot="end">Manna</ion-note>
+										</ion-item>
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+										<ion-item>
+											<ion-label>Correspondence address</ion-label>
+											<ion-note slot="end">Male</ion-note>
+										</ion-item>
+									</div>
+								</div>
+								<form *ngIf="!model.profile" #studentsAddForm="ngForm" (ngSubmit)="onSubmit(studentsAddForm)" >
+									<div class="row ion-padding">
+
+										<!-- First Name -->
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+											<div class="form-item">
+												<ion-label position="floating">First Name <sup>*</sup> </ion-label>
+												<ion-input name="fname" [(ngModel)]="model.fname" clearInput required></ion-input>
+											</div>
+										</div>
+										<!-- Last Name -->
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+											<div class="form-item">
+												<ion-label position="floating">Last Name <sup>*</sup> </ion-label>
+												<ion-input name="lname" [(ngModel)]="model.lname" clearInput required></ion-input>
+											</div>
+										</div>
+										<!-- Gender -->
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+											<div class="form-item">
+												<ion-label position="floating">Gender </ion-label>
+												<ion-list>
+													<div class="radio-item" *ngFor="let item of genderArry; let i = index;">
+														<!-- gender >>  {{item.gender}} -->
+														<input type="radio" id="ritema{{i}}" [value]="item?.value" name="gender" [(ngModel)]="item.gender">
+														<label for="ritema{{i}}">{{item?.name}}</label>
+													</div>
+												</ion-list>
+											</div>
+										</div>
+										<!-- Date of birth -->
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+											<div class="form-item">
+												<ion-label position="floating">D.O.B </ion-label>
+												<li-ionic4-datepicker 
+													name="dob" 
+													[(ngModel)]="model.dob"
+													[inputDateConfig]="datePickerObj" 
+												></li-ionic4-datepicker>
+												<!-- (ngModelChange)="onDateChangeDate('dob', model.dob)" -->
+											</div>
+										</div>
+										<!-- Marital Status -->
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+											<div class="form-item">
+												<ion-label position="floating">Marital Status</ion-label>
+												<ng-select #maritalStatusSearch
+													[loading]="selectLoading"
+													[dropdownPosition]="'bottom'"
+													placeholder="Please Select"
+													[items]="maritalStatus"
+													bindLabel="name"
+													bindValue="id"
+													[searchable]="false"
+													name="maritalStatus" 
+													[(ngModel)]="model.maritalStatus"
+													
+													>
+													<ng-template ng-header-tmp>
+														<input placeholder="Search" class="dropdown-custom-search" type="text" (input)="maritalStatusSearch.filter($event.target.value)" [autofocus]="true" />
+													</ng-template>
+												</ng-select>
+											</div>
+										</div>
+										 <!-- Mobile -->
+										 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+											<div class="form-item">
+												<ion-label position="floating">Mobile<sup>*</sup> </ion-label>
+
+												<div class="d-flex mobile coun">
+													<div>
+														<ng-select appearance="outline" 
+															name="coun_code"
+															required 
+															[(ngModel)]="model.coun_code" 
+															[searchable]="true" 
+															placeholder="Country code"
+															[clearable]="false">
+															<ng-option *ngFor="let item of country" [value]="item.phonecode">
+																
+																{{item.name}} ({{item.phonecode}})
+															</ng-option>
+														</ng-select>
+													</div>
+													<ion-input OnlyNumber="true" type="tel" minlength="1" maxlength="20" name="phone_no" [(ngModel)]="model.phone_no" clearInput required></ion-input>
+												</div>
+											</div>
+										</div>
+										<!-- Linkdin -->
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+											<div class="form-item">
+												<ion-label position="floating">Linkedin profile</ion-label>
+												<ion-input name="linkdin" [(ngModel)]="model.linkdin" placeholder="Eg. https://www.linkedin.com/in/jeffweiner08" clearInput></ion-input>
+											</div>
+										</div>
+										<!-- Github -->
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+											<div class="form-item">
+												<ion-label position="floating">Github profile</ion-label>
+												<ion-input name="github" [(ngModel)]="model.github" placeholder="Eg. https://www.github.com/jeffweiner08" clearInput></ion-input>
+											</div>
+										</div>
+										<!-- Skype Id -->
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+											<div class="form-item">
+												<ion-label position="floating">Skype Id</ion-label>
+												<ion-input name="skype" [(ngModel)]="model.skype" clearInput required></ion-input>
+											</div>
+										</div>
+										
+										<!-- Country -->
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+											<div class="form-item">
+												<ion-label position="floating">Country</ion-label>
+												<ng-select #countryAddressSerch
+													[loading]="selectLoading"
+													[dropdownPosition]="'bottom'"
+													placeholder="Please Select Country"
+													[items]="countryList"
+													bindLabel="name"
+													bindValue="id"
+													(change)="onChangeLocation(model.country_id, 'state', model)"
+													[searchable]="false"
+													name="country_id" 
+													[(ngModel)]="model.country_id"
+													
+													>
+													<ng-template ng-header-tmp>
+														<input placeholder="Search" class="dropdown-custom-search" type="text" (input)="countryAddressSerch.filter($event.target.value)" [autofocus]="true" />
+													</ng-template>
+												</ng-select>
+											</div>
+										</div>
+			
+										<!-- State -->
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+											<div class="form-item">
+												<ion-label position="floating">State</ion-label>
+												<ng-select #stateAddressSerch
+													[loading]="selectLoadingDepend"
+													[dropdownPosition]="'bottom'"
+													placeholder="Please Select State"
+													[items]="stateList"
+													bindLabel="name"
+													bindValue="id"
+													(change)="onChangeLocation(model.state_id, 'city', model)"
+													[searchable]="false"
+													name="state_id" 
+													[(ngModel)]="model.state_id" 
+													
+													>
+													<ng-template ng-header-tmp>
+														<input placeholder="Search" class="dropdown-custom-search" type="text" (input)="stateAddressSerch.filter($event.target.value)" [autofocus]="true" />
+													</ng-template>
+												</ng-select>
+											</div>
+										</div>
+			
+										<!-- City -->
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+											<div class="form-item">
+												<ion-label position="floating">City</ion-label>
+												<ng-select #cityAddressSerch
+													[loading]="selectLoading"
+													[dropdownPosition]="'bottom'"
+													placeholder="Please Select City"
+													[items]="cityList"
+													bindLabel="name"
+													bindValue="id"
+													(change)="onChange(model.city_id)"
+													[searchable]="false"
+													name="city_id" 
+													[(ngModel)]="model.city_id" 
+													
+													>
+													<ng-template ng-header-tmp>
+														<input placeholder="Search" class="dropdown-custom-search" type="text" (input)="cityAddressSerch.filter($event.target.value)" [autofocus]="true" />
+													</ng-template>
+												</ng-select>
+											</div>
+										</div>
+										<!-- Pin -->
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+											<div class="form-item">
+												<ion-label position="floating">Pin </ion-label>
+												<ion-input OnlyNumber="true" type="tel" minlength="6" maxlength="6" name="pin" [(ngModel)]="model.pin" clearInput></ion-input>
+											</div>
+										</div>
+										<!-- Permanent address -->
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+											<div class="form-item">
+												<ion-label position="floating">Permanent address</ion-label>
+												<ion-textarea auto-grow="true" name="address_1" [(ngModel)]="model.address_1" clearInput></ion-textarea>
+											</div>
+										</div>
+			
+										<!-- Correspondence address -->
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+											<div class="form-item">
+												<ion-label position="floating">Correspondence address</ion-label>
+												<ion-textarea auto-grow="true" name="address_2" [(ngModel)]="model.address_2" clearInput></ion-textarea>
+											</div>
+										</div>
+									</div>
+
+									<!-- submit button -->
+									<div class="row ion-padding-bottom submit-button-wrapper">
+										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ion-text-right">
+											<div class="custom-btn">
+												<ion-button size="default"
+												type="submit"  [disabled]="!studentsAddForm.valid"
+												tooltip="Submit" flow="up">
+												<ion-spinner name="crescent" *ngIf="form_submit_text == 'Submitting'"></ion-spinner> 
+												<span class="submitText">Update</span>
+												</ion-button>
+												<ion-button class="reload clear-form" size="default" fill="clear" tooltip="Cancel" flow="up">
+													Cancel
+												</ion-button>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					  </div>
+					</mat-tab>
+				  
+					<mat-tab>
+						<ng-template mat-tab-label>
+							<mat-icon class="example-tab-icon">settings_applications</mat-icon>
+							Services
+						</ng-template>
+						<div class="tab-inner profile-tab">
+							<div class="student-register-wrapper">
+								<div class="ion-no-padding student-register-inner form-col">
+									<div class="faq-content-wrapper">
+										<mat-accordion>
+											<mat-expansion-panel>
+												<mat-expansion-panel-header>
+													<mat-panel-title>
+													Study permit/Work permit
+													</mat-panel-title>
+												</mat-expansion-panel-header>
+												<form  #studentsAddForm="ngForm" (ngSubmit)="onSubmit(studentsAddForm)" >
+													<div class="row ion-padding">
+														<!-- First Name -->
+														<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+															<div class="form-item">
+																<ion-label position="floating">First Name <sup>*</sup> </ion-label>
+																<ion-input name="fname" [(ngModel)]="model.fname" clearInput required></ion-input>
+															</div>
+														</div>
+													</div>
+													<!-- submit button -->
+													<div class="row ion-padding-bottom submit-button-wrapper">
+														<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ion-text-right">
+															<div class="custom-btn">
+																<ion-button size="default"
+																type="submit"  [disabled]="!studentsAddForm.valid"
+																tooltip="Submit" flow="up">
+																<ion-spinner name="crescent" *ngIf="form_submit_text == 'Submitting'"></ion-spinner> 
+																<span class="submitText">Update</span>
+																</ion-button>
+																<ion-button class="reload clear-form" size="default" fill="clear" tooltip="Cancel" flow="up">
+																	Cancel
+																</ion-button>
+															</div>
+														</div>
+													</div>
+												</form>
+											</mat-expansion-panel>
+											<mat-expansion-panel>
+											  <mat-expansion-panel-header>
+												<mat-panel-title>
+												  Family Reunification
+												</mat-panel-title>
+											  </mat-expansion-panel-header>
+											  <form  #studentsAddForm="ngForm" (ngSubmit)="onSubmit(studentsAddForm)" >
+												<div class="row ion-padding">
+													<!-- First Name -->
+													<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+														<div class="form-item">
+															<ion-label position="floating">First Name <sup>*</sup> </ion-label>
+															<ion-input name="fname" [(ngModel)]="model.fname" clearInput required></ion-input>
+														</div>
+													</div>
+												</div>
+												<!-- submit button -->
+												<div class="row ion-padding-bottom submit-button-wrapper">
+													<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ion-text-right">
+														<div class="custom-btn">
+															<ion-button size="default"
+															type="submit"  [disabled]="!studentsAddForm.valid"
+															tooltip="Submit" flow="up">
+															<ion-spinner name="crescent" *ngIf="form_submit_text == 'Submitting'"></ion-spinner> 
+															<span class="submitText">Update</span>
+															</ion-button>
+															<ion-button class="reload clear-form" size="default" fill="clear" tooltip="Cancel" flow="up">
+																Cancel
+															</ion-button>
+														</div>
+													</div>
+												</div>
+											</form>
+											</mat-expansion-panel>
+											<mat-expansion-panel>
+												<mat-expansion-panel-header>
+													<mat-panel-title>
+														Business Immigration/Start up visa
+													</mat-panel-title>
+												</mat-expansion-panel-header>
+												<form  #studentsAddForm="ngForm" (ngSubmit)="onSubmit(studentsAddForm)" >
+													<div class="row ion-padding">
+														<!-- First Name -->
+														<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+															<div class="form-item">
+																<ion-label position="floating">First Name <sup>*</sup> </ion-label>
+																<ion-input name="fname" [(ngModel)]="model.fname" clearInput required></ion-input>
+															</div>
+														</div>
+													</div>
+													<!-- submit button -->
+													<div class="row ion-padding-bottom submit-button-wrapper">
+														<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ion-text-right">
+															<div class="custom-btn">
+																<ion-button size="default"
+																type="submit"  [disabled]="!studentsAddForm.valid"
+																tooltip="Submit" flow="up">
+																<ion-spinner name="crescent" *ngIf="form_submit_text == 'Submitting'"></ion-spinner> 
+																<span class="submitText">Update</span>
+																</ion-button>
+																<ion-button class="reload clear-form" size="default" fill="clear" tooltip="Cancel" flow="up">
+																	Cancel
+																</ion-button>
+															</div>
+														</div>
+													</div>
+												</form>
+											</mat-expansion-panel>
+											<mat-expansion-panel>
+											  <mat-expansion-panel-header>
+												<mat-panel-title>
+												  Entrepreneur / Investor
+												</mat-panel-title>
+											  </mat-expansion-panel-header>
+											  <form  #studentsAddForm="ngForm" (ngSubmit)="onSubmit(studentsAddForm)" >
+												<div class="row ion-padding">
+													<!-- First Name -->
+													<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+														<div class="form-item">
+															<ion-label position="floating">First Name <sup>*</sup> </ion-label>
+															<ion-input name="fname" [(ngModel)]="model.fname" clearInput required></ion-input>
+														</div>
+													</div>
+												</div>
+												<!-- submit button -->
+												<div class="row ion-padding-bottom submit-button-wrapper">
+													<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ion-text-right">
+														<div class="custom-btn">
+															<ion-button size="default"
+															type="submit"  [disabled]="!studentsAddForm.valid"
+															tooltip="Submit" flow="up">
+															<ion-spinner name="crescent" *ngIf="form_submit_text == 'Submitting'"></ion-spinner> 
+															<span class="submitText">Update</span>
+															</ion-button>
+															<ion-button class="reload clear-form" size="default" fill="clear" tooltip="Cancel" flow="up">
+																Cancel
+															</ion-button>
+														</div>
+													</div>
+												</div>
+											</form>
+											</mat-expansion-panel>
+											<mat-expansion-panel>
+												<mat-expansion-panel-header>
+													<mat-panel-title>
+													Express entry (All Streams)
+													</mat-panel-title>
+												</mat-expansion-panel-header>
+												<form  #studentsAddForm="ngForm" (ngSubmit)="onSubmit(studentsAddForm)" >
+													<div class="row ion-padding">
+														<!-- First Name -->
+														<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+															<div class="form-item">
+																<ion-label position="floating">First Name <sup>*</sup> </ion-label>
+																<ion-input name="fname" [(ngModel)]="model.fname" clearInput required></ion-input>
+															</div>
+														</div>
+													</div>
+													<!-- submit button -->
+													<div class="row ion-padding-bottom submit-button-wrapper">
+														<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ion-text-right">
+															<div class="custom-btn">
+																<ion-button size="default"
+																type="submit"  [disabled]="!studentsAddForm.valid"
+																tooltip="Submit" flow="up">
+																<ion-spinner name="crescent" *ngIf="form_submit_text == 'Submitting'"></ion-spinner> 
+																<span class="submitText">Update</span>
+																</ion-button>
+																<ion-button class="reload clear-form" size="default" fill="clear" tooltip="Cancel" flow="up">
+																	Cancel
+																</ion-button>
+															</div>
+														</div>
+													</div>
+												</form>
+											</mat-expansion-panel>
+											<mat-expansion-panel>
+											  <mat-expansion-panel-header>
+												<mat-panel-title>
+												  Visitor visa
+												</mat-panel-title>
+											  </mat-expansion-panel-header>
+											  <form  #studentsAddForm="ngForm" (ngSubmit)="onSubmit(studentsAddForm)" >
+												<div class="row ion-padding">
+													<!-- First Name -->
+													<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+														<div class="form-item">
+															<ion-label position="floating">First Name <sup>*</sup> </ion-label>
+															<ion-input name="fname" [(ngModel)]="model.fname" clearInput required></ion-input>
+														</div>
+													</div>
+												</div>
+												<!-- submit button -->
+												<div class="row ion-padding-bottom submit-button-wrapper">
+													<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ion-text-right">
+														<div class="custom-btn">
+															<ion-button size="default"
+															type="submit"  [disabled]="!studentsAddForm.valid"
+															tooltip="Submit" flow="up">
+															<ion-spinner name="crescent" *ngIf="form_submit_text == 'Submitting'"></ion-spinner> 
+															<span class="submitText">Update</span>
+															</ion-button>
+															<ion-button class="reload clear-form" size="default" fill="clear" tooltip="Cancel" flow="up">
+																Cancel
+															</ion-button>
+														</div>
+													</div>
+												</div>
+											</form>
+											</mat-expansion-panel>
+											<mat-expansion-panel>
+												<mat-expansion-panel-header>
+													<mat-panel-title>
+													Canadian citizenship
+													</mat-panel-title>
+												</mat-expansion-panel-header>
+												<form  #studentsAddForm="ngForm" (ngSubmit)="onSubmit(studentsAddForm)" >
+													<div class="row ion-padding">
+														<!-- First Name -->
+														<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+															<div class="form-item">
+																<ion-label position="floating">First Name <sup>*</sup> </ion-label>
+																<ion-input name="fname" [(ngModel)]="model.fname" clearInput required></ion-input>
+															</div>
+														</div>
+													</div>
+													<!-- submit button -->
+													<div class="row ion-padding-bottom submit-button-wrapper">
+														<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ion-text-right">
+															<div class="custom-btn">
+																<ion-button size="default"
+																type="submit"  [disabled]="!studentsAddForm.valid"
+																tooltip="Submit" flow="up">
+																<ion-spinner name="crescent" *ngIf="form_submit_text == 'Submitting'"></ion-spinner> 
+																<span class="submitText">Update</span>
+																</ion-button>
+																<ion-button class="reload clear-form" size="default" fill="clear" tooltip="Cancel" flow="up">
+																	Cancel
+																</ion-button>
+															</div>
+														</div>
+													</div>
+												</form>
+											</mat-expansion-panel>
+											<mat-expansion-panel>
+											  <mat-expansion-panel-header>
+												<mat-panel-title>
+												  Provincial Nomination
+												</mat-panel-title>
+											  </mat-expansion-panel-header>
+											  <form  #studentsAddForm="ngForm" (ngSubmit)="onSubmit(studentsAddForm)" >
+												<div class="row ion-padding">
+													<!-- First Name -->
+													<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+														<div class="form-item">
+															<ion-label position="floating">First Name <sup>*</sup> </ion-label>
+															<ion-input name="fname" [(ngModel)]="model.fname" clearInput required></ion-input>
+														</div>
+													</div>
+												</div>
+												<!-- submit button -->
+												<div class="row ion-padding-bottom submit-button-wrapper">
+													<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ion-text-right">
+														<div class="custom-btn">
+															<ion-button size="default"
+															type="submit"  [disabled]="!studentsAddForm.valid"
+															tooltip="Submit" flow="up">
+															<ion-spinner name="crescent" *ngIf="form_submit_text == 'Submitting'"></ion-spinner> 
+															<span class="submitText">Update</span>
+															</ion-button>
+															<ion-button class="reload clear-form" size="default" fill="clear" tooltip="Cancel" flow="up">
+																Cancel
+															</ion-button>
+														</div>
+													</div>
+												</div>
+											</form>
+											</mat-expansion-panel>
+											<mat-expansion-panel>
+												<mat-expansion-panel-header>
+													<mat-panel-title>
+													PR card renewal
+													</mat-panel-title>
+												</mat-expansion-panel-header>
+												<form  #studentsAddForm="ngForm" (ngSubmit)="onSubmit(studentsAddForm)" >
+													<div class="row ion-padding">
+														<!-- First Name -->
+														<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+															<div class="form-item">
+																<ion-label position="floating">First Name <sup>*</sup> </ion-label>
+																<ion-input name="fname" [(ngModel)]="model.fname" clearInput required></ion-input>
+															</div>
+														</div>
+													</div>
+													<!-- submit button -->
+													<div class="row ion-padding-bottom submit-button-wrapper">
+														<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ion-text-right">
+															<div class="custom-btn">
+																<ion-button size="default"
+																type="submit"  [disabled]="!studentsAddForm.valid"
+																tooltip="Submit" flow="up">
+																<ion-spinner name="crescent" *ngIf="form_submit_text == 'Submitting'"></ion-spinner> 
+																<span class="submitText">Update</span>
+																</ion-button>
+																<ion-button class="reload clear-form" size="default" fill="clear" tooltip="Cancel" flow="up">
+																	Cancel
+																</ion-button>
+															</div>
+														</div>
+													</div>
+												</form>
+											</mat-expansion-panel>
+											<mat-expansion-panel>
+											  <mat-expansion-panel-header>
+												<mat-panel-title>
+												  LMIA
+												</mat-panel-title>
+											  </mat-expansion-panel-header>
+											  <form  #studentsAddForm="ngForm" (ngSubmit)="onSubmit(studentsAddForm)" >
+												<div class="row ion-padding">
+													<!-- First Name -->
+													<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+														<div class="form-item">
+															<ion-label position="floating">First Name <sup>*</sup> </ion-label>
+															<ion-input name="fname" [(ngModel)]="model.fname" clearInput required></ion-input>
+														</div>
+													</div>
+												</div>
+												<!-- submit button -->
+												<div class="row ion-padding-bottom submit-button-wrapper">
+													<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ion-text-right">
+														<div class="custom-btn">
+															<ion-button size="default"
+															type="submit"  [disabled]="!studentsAddForm.valid"
+															tooltip="Submit" flow="up">
+															<ion-spinner name="crescent" *ngIf="form_submit_text == 'Submitting'"></ion-spinner> 
+															<span class="submitText">Update</span>
+															</ion-button>
+															<ion-button class="reload clear-form" size="default" fill="clear" tooltip="Cancel" flow="up">
+																Cancel
+															</ion-button>
+														</div>
+													</div>
+												</div>
+											</form>
+											</mat-expansion-panel>
+											<mat-expansion-panel>
+												<mat-expansion-panel-header>
+													<mat-panel-title>
+													Post landing services
+													</mat-panel-title>
+												</mat-expansion-panel-header>
+												<form  #studentsAddForm="ngForm" (ngSubmit)="onSubmit(studentsAddForm)" >
+													<div class="row ion-padding">
+														<!-- First Name -->
+														<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+															<div class="form-item">
+																<ion-label position="floating">First Name <sup>*</sup> </ion-label>
+																<ion-input name="fname" [(ngModel)]="model.fname" clearInput required></ion-input>
+															</div>
+														</div>
+													</div>
+													<!-- submit button -->
+													<div class="row ion-padding-bottom submit-button-wrapper">
+														<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ion-text-right">
+															<div class="custom-btn">
+																<ion-button size="default"
+																type="submit"  [disabled]="!studentsAddForm.valid"
+																tooltip="Submit" flow="up">
+																<ion-spinner name="crescent" *ngIf="form_submit_text == 'Submitting'"></ion-spinner> 
+																<span class="submitText">Update</span>
+																</ion-button>
+																<ion-button class="reload clear-form" size="default" fill="clear" tooltip="Cancel" flow="up">
+																	Cancel
+																</ion-button>
+															</div>
+														</div>
+													</div>
+												</form>
+											</mat-expansion-panel>
+										</mat-accordion>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+					</mat-tab>
+
+					<mat-tab>
+						<ng-template mat-tab-label>
+						  <mat-icon class="example-tab-icon">description</mat-icon>
+						  Document
+						</ng-template>
+					
+						Content 3
+					  </mat-tab>
+				  
+					<mat-tab>
+					  <ng-template mat-tab-label>
+						<mat-icon class="example-tab-icon">elevator</mat-icon>
+						Counseling & Evaluation
+					  </ng-template>
+				  
+					  Content 4
+					</mat-tab>
+				</mat-tab-group>
+			</div>
+
+		</div>
+		
+
+		<!-- skeleton loading  start-->
+		<div class="container" *ngIf="viewLoadData">
+			<div class="row">
+				<div class="profile">
+					<ion-card>
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+								<div class="ion-padding">
+									<div class="row profile-information">
+										<!-- Product image -->
+										<div class="col-xs-4 col-sm-4 col-md-3 col-lg-3">
+											<ion-skeleton-text animated style="width: 100px; height: 100px; "></ion-skeleton-text>
+										</div>
+										<!-- Product details -->
+										<div class="col-xs-8 col-sm-8 col-md-9 col-lg-9">
+											<h4>
+												<ion-skeleton-text animated style="width: 70%; "></ion-skeleton-text>
+											</h4>
+											<p>
+												<ion-skeleton-text animated style="width: 60%; "></ion-skeleton-text>
+											</p>
+											<p>
+												<ion-skeleton-text animated style="width:50%; "></ion-skeleton-text>
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+								<div class="profile_details">
+								<ion-skeleton-text animated style="width: 130px; height:130px; border-radius: 50%; top: 0;top: 0; right: auto; left: 50%; -webkit-transform: translateX(-50%); transform: translateX(-50%);"></ion-skeleton-text>
+								</div>
+							</div>
+						</div>
+					</ion-card>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 product_information">
+					<ion-card>
+						<div class="row">
+							<div class="col-xs-6 col-sm-6 col-md-7 col-lg-7">
+								<ion-avatar slot="start">
+									<ion-skeleton-text animated style="width: 45px; height: 45px; "></ion-skeleton-text>
+								</ion-avatar>
+								<h2>
+									<ion-skeleton-text animated style="width: 60%; text-align: center; margin-left: 37px;"></ion-skeleton-text>
+								</h2>
+							</div>
+							<div class="col-xs-6 col-sm-6 col-md-5 col-lg-5">
+								<h2 class="count">
+									<ion-skeleton-text animated style="width: 100%; "></ion-skeleton-text>
+								</h2>
+							</div>
+						</div>
+					</ion-card>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 product_information">
+					<ion-card>
+						<div class="row">
+							<div class="col-xs-6 col-sm-6 col-md-7 col-lg-7">
+								<ion-avatar slot="start">
+									<ion-skeleton-text animated style="width: 45px; height: 45px; "></ion-skeleton-text>
+								</ion-avatar>
+								<h2>
+									<ion-skeleton-text animated style="width: 60%; text-align: center; margin-left: 37px;"></ion-skeleton-text>
+								</h2>
+							</div>
+							<div class="col-xs-6 col-sm-6 col-md-5 col-lg-5">
+								<h2 class="count">
+									<ion-skeleton-text animated style="width: 100%; "></ion-skeleton-text>
+								</h2>
+							</div>
+						</div>
+					</ion-card>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 product_information">
+					<ion-card>
+						<div class="row">
+							<div class="col-xs-6 col-sm-6 col-md-7 col-lg-7">
+								<ion-avatar slot="start">
+									<ion-skeleton-text animated style="width: 45px; height: 45px; "></ion-skeleton-text>
+								</ion-avatar>
+								<h2>
+									<ion-skeleton-text animated style="width: 60%; text-align: center; margin-left: 37px;"></ion-skeleton-text>
+								</h2>
+							</div>
+							<div class="col-xs-6 col-sm-6 col-md-5 col-lg-5">
+								<h2 class="count">
+									<ion-skeleton-text animated style="width: 100%; "></ion-skeleton-text>
+								</h2>
+							</div>
+						</div>
+					</ion-card>
+				</div>
+			</div>
+		</div>
+		<!-- skeleton loading  end-->
+
+	</div>
+	<!-- Dashboard page end -->
+
+	<!-- common footer show -->
+	<common-footer></common-footer>
+</ion-content>

@@ -1,0 +1,145 @@
+<ion-content [scrollEvents]="true" (ionScroll)="onScrollHedearFix($event)">
+  <!-- common header show -->
+  <common-header [ngClass]="{'fix-header':isFixedHeader}"></common-header>
+  <!-- Sub header start -->
+  <div class="sub-header">
+    <div class="sub-header-inner">
+      <h1>{{viewData?.service_name}}</h1>
+      <div class="breadcrumbs"><a class="breadcrumbs_item" href="#">Home</a><span class="breadcrumbs_delimiter">|</span><span class="breadcrumbs_item current">{{viewData?.service_name}}</span></div>
+    </div>
+  </div>
+  <!-- Sub header end -->
+  <!--------- details section start ------- -->
+  <div class="detailsPage-wrapper about-us" *ngIf="viewData">
+    <!-- About company start -->
+    <div class="about-company">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <div class="content">
+              <h2>{{viewData?.service_name}}</h2>
+              <p>{{viewData?.short_description}}</p>
+              <!-- <div class="custom-btn">
+                <ion-button size="default" type="button">
+                  <span class="submitText">Discover More</span>
+                </ion-button>
+              </div> -->
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="box-image">
+              <img src="{{file_url}}/public/images/{{viewData?.image}}" alt="{{viewData?.image}}">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- About company end -->
+    
+    <div class="container" [innerHTML]="viewData?.description" ></div>
+
+    <!-- -------Request section start------- -->
+    <div class="request-section workflow">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 col-xl-6">
+            <div class="txt-block" [innerHTML]="commonPageData?.consultation_text">
+              
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-5 offset-xl-1">
+            <div class="associate-us-wrapper student-register-wrapper contact-us-wrapper">
+              <form  #acontactusAddForm="ngForm" (ngSubmit)="onSubmitConsultation(acontactusAddForm)" class="student-register-inner">
+                <h6>Request Free Consultation</h6>
+                <div class="row ion-padding">
+                  <div class="col-xs-12 col-sm-10 col-lg-12">
+                    <div class="assessment-inner">
+                      <div class="row">
+                        <!-- name -->
+                        <div class="col-xs-12 col-sm-12">
+                          <div>
+                            <!-- <ion-label position="floating">Name : <sup>*</sup> </ion-label> -->
+                            <ion-input placeholder="Name*" name="name" [(ngModel)]="model.name" clearInput required></ion-input>
+                          </div>
+                        </div>
+                        <!-- email -->
+                        <div class="col-xs-12 col-sm-12">
+                          <div>
+                            <!-- <ion-label position="floating">Email : <sup>*</sup> </ion-label> -->
+                            <ion-input placeholder="Email*" type="email" name="email" [(ngModel)]="model.email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" clearInput email required></ion-input>
+                          </div>
+                        </div>
+                        <!-- Mobile -->
+                        <div class="col-xs-12 col-sm-12">
+                          <div>
+                            <!-- <ion-label position="floating">Mobile <sup>*</sup> </ion-label> -->
+                            <ion-input placeholder="Mobile*" OnlyNumber="true" type="tel" minlength="1" maxlength="20" name="phone_no" [(ngModel)]="model.phone" clearInput required></ion-input>
+                          </div>
+                        </div>
+                        <!-- Select visa -->
+                        <div class="col-xs-12 col-sm-12">
+                          <div>
+                            <ng-select #visaSearch
+                              [dropdownPosition]="'bottom'"
+                              placeholder="Select Visa*"
+                              [items]="serviceData"
+                              bindLabel="service_name"
+                              bindValue="id"
+                              [searchable]="false"
+                              name="service_type" 
+                              [(ngModel)]="model.visa"
+                              required
+                              >
+                              <ng-template ng-header-tmp>
+                                  <input placeholder="Search" class="dropdown-custom-search" type="text" (input)="visaSearch.filter($event.target.value)" [autofocus]="true" />
+                              </ng-template>
+                            </ng-select>
+                          </div>
+                        </div>
+                        <!-- Message -->
+                        <div class="col-xs-12 col-sm-12">
+                          <div>
+                            <!-- <ion-label position="floating">Message : </ion-label> -->
+                            <ion-textarea required placeholder="Message*" auto-grow="true" name="message" [(ngModel)]="model.description" clearInput></ion-textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="submit-button-wrapper">
+                  <div class="row ion-padding">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ion-text-center">
+                      <div class="custom-btn">
+                        <!-- <ion-button class="reload clear-form" size="default" fill="clear" tooltip="Clear" flow="up" (click)="reloadPageAlert()">
+                          
+                          Clear
+                        </ion-button> -->
+    
+                        <ion-button class="submit" size="default"
+                        type="submit" 
+                        expand="block"
+                        [disabled]="!acontactusAddForm.valid"
+                        tooltip="Submit" flow="up">
+                        <ion-spinner name="crescent" *ngIf="form_submit_text == 'Submitting'"></ion-spinner> 
+                        <span class="submitText">Send Request</span>
+                        </ion-button>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Request section end -->
+  </div>
+  <!-- details section end -->
+
+  <!-- common footer show -->
+  <common-footer></common-footer>
+
+</ion-content>
